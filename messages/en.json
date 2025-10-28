@@ -1,0 +1,162 @@
+{
+  "Navbar": {
+    "Logo": "SHOP.CO",
+    "Home": "Home",
+    "Shop": "Shop",
+    "OnSale": "On Sale",
+    "NewArrivals": "New Arrivals",
+    "Brands": "Brands"
+  },
+  "SearchPlaceholder": "Search for products...",
+  "Hero": {
+    "HeadlineLine1": "FIND CLOTHES",
+    "HeadlineLine2": "THAT MATCHES",
+    "HeadlineLine3": "YOUR STYLE",
+    "SubheadlineLine1": "Browse through our diverse range of meticulously crafted garments,",
+    "SubheadlineLine2": "designed to bring out your individuality and cater to your sense of style.",
+    "Button": "Shop Now",
+    "BackgroundAlt": "Stylish Fashion Models",
+    "BelowButtonImageAlt": "Fashion Showcase"
+  },
+  "BrandsBar": {
+    "Versace": "VERSACE",
+    "Zara": "ZARA",
+    "Gucci": "GUCCI",
+    "Prada": "PRADA",
+    "CalvinKlein": "Calvin Klein"
+  },
+  "Sections": {
+    "NewArrivals": "NEW ARRIVALS",
+    "TopSelling": "TOP SELLING",
+    "BrowseStyle": "BROWSE BY DRESS STYLE",
+    "HappyCustomers": "OUR HAPPY CUSTOMERS",
+    "Newsletter": {
+      "TitleLine1": "STAY UP TO DATE ABOUT",
+      "TitleLine2": "OUR LATEST OFFERS",
+      "Placeholder": "Enter your email address",
+      "Button": "Subscribe to Newsletter"
+    }
+  },
+  "Buttons": {
+    "ViewAll": "View All"
+  },
+  "HappyCustomers": {
+    "Reviews": [
+      {
+        "Name": "Sarah M.",
+        "Review": "I'm blown away by the quality and style of the clothes I received from Shopco. From casual wear to elegant dresses, every piece I’ve bought has exceeded my expectations.",
+        "Rating": 5
+      },
+      {
+        "Name": "Alex K.",
+        "Review": "Finding clothes that align with my personal style used to be a challenge until I discovered Shopco. The range of options they offer is truly remarkable, catering to various tastes.",
+        "Rating": 5
+      },
+      {
+        "Name": "James L.",
+        "Review": "As someone who's always on the lookout for unique fashion pieces, I’m thrilled to have stumbled upon Shopco. Their selection is diverse, trendy, and top quality.",
+        "Rating": 5
+      },
+      {
+        "Name": "Michael Brown",
+        "Rating": 4,
+        "Review": "Good experience overall. The fabric feels premium and durable."
+      },
+      {
+        "Name": "Sophia Turner",
+        "Rating": 5,
+        "Review": "Excellent service and quick delivery. The quality exceeded my expectations!"
+      },
+      {
+        "Name": "Liam Carter",
+        "Rating": 4,
+        "Review": "Very comfortable and stylish. Got so many compliments wearing this!"
+      },
+      {
+        "Name": "Olivia Green",
+        "Rating": 5,
+        "Review": "Fantastic experience! I’ll definitely recommend this store to my friends."
+      }
+    ]
+  },
+  "Footer": {
+    "BrandName": "SHOP.CO",
+    "Description": "We have clothes that suit your style and which you're proud to wear. From women to men.",
+    "Columns": {
+      "Company": {
+        "Title": "COMPANY",
+        "Links": ["About", "Features", "Works", "Career"]
+      },
+      "Help": {
+        "Title": "HELP",
+        "Links": [
+          "Customer Support",
+          "Delivery Details",
+          "Terms & Conditions",
+          "Privacy Policy"
+        ]
+      },
+      "FAQ": {
+        "Title": "FAQ",
+        "Links": ["Account", "Manage Deliveries", "Orders", "Payments"]
+      },
+      "Resources": {
+        "Title": "RESOURCES",
+        "Links": [
+          "Free eBooks",
+          "Development Tutorial",
+          "How to - Blog",
+          "YouTube Playlist"
+        ]
+      }
+    },
+    "BottomText": "Shop.co © 2000–2023, All Rights Reserved",
+    "Payments": ["visa.png", "mastercard.png", "paypal.png", "applepay.png"]
+  },
+  "Buttons": {
+    "AddToCart": "Add to Cart",
+    "Like": "Like",
+    "Share": "Share",
+    "ViewAll": "View All"
+  },
+
+  "CartPage": {
+    "BreadcrumbHome": "Home",
+    "BreadcrumbCart": "Cart",
+    "Title": "YOUR CART",
+    "EmptyMessage": "Your cart is empty.",
+    "OrderSummaryTitle": "Order Summary",
+    "SubtotalLabel": "Subtotal",
+    "DiscountLabel": "Discount",
+    "DeliveryLabel": "Delivery Fee",
+    "TotalLabel": "Total",
+    "PromoPlaceholder": "Add promo code",
+    "ApplyButton": "Apply",
+    "CheckoutButton": "Go to Checkout"
+  },
+  "ProductCard": {
+    "AddButton": "Add to Cart",
+    "AddingText": "Adding...",
+    "AddedMessage": "Added to cart!",
+    "WishlistTooltip": "Add to wishlist",
+    "ShareTooltip": "Share product"
+  },
+  "PaymentPage": {
+    "Title": "Payment Details",
+    "NameLabel": "Full Name",
+    "NamePlaceholder": "Enter your name",
+    "CardNumberLabel": "Card Number",
+    "CardNumberPlaceholder": "1234 ---- ---- ---- ----",
+    "CcvLabel": "CCV",
+    "CcvPlaceholder": "- - - ",
+    "ExpiryLabel": "Expiry Date",
+    "ExpiryPlaceholder": "MM / YY",
+    "CompletePaymentButton": "Complete Payment",
+    "OrderSummaryTitle": "Order Summary",
+    "OrderIdLabel": "Order ID",
+    "TaxLabel": "Tax",
+    "DeliveryLabel": "Delivery",
+    "TotalLabel": "Total",
+    "PaymentSuccessMessage": "Payment Successful!"
+  }
+}
