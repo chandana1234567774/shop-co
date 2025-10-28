@@ -29,6 +29,7 @@
     "NewArrivals": "NEW ARRIVALS",
     "TopSelling": "TOP SELLING",
     "BrowseStyle": "BROWSE BY DRESS STYLE",
+    "BrowseStyleLabels": ["Casual", "Formal", "Party", "Gym"],
     "HappyCustomers": "OUR HAPPY CUSTOMERS",
     "Newsletter": {
       "TitleLine1": "STAY UP TO DATE ABOUT",

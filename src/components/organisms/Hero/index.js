@@ -37,24 +37,24 @@ export default function Hero() {
         <div className="flex-1 flex flex-col justify-center px-6 sm:px-10 md:px-12 lg:px-16 xl:px-20 pt-28 pb-36">
           <div className="max-w-full md:max-w-[580px]">
             {/* Headline */}
-            <h1 className="text-[32px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-black text-black leading-[1.1] mb-6">
+            <h1 className="text-[32px] sm:text-[44px] md:text-[52px] lg:text-[60px] font-black text-black leading-[1.1] mb-12">
               <span className="block">{hero.HeadlineLine1}</span>
               <span className="block">{hero.HeadlineLine2}</span>
               <span className="block">{hero.HeadlineLine3}</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-8 max-w-[545px]">
+            <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 mt=8 max-w-[545px]">
               {hero.SubheadlineLine1} {hero.SubheadlineLine2}
             </p>
 
             {/* Button */}
-            <Button className="px-10 py-3 sm:py-4 text-sm sm:text-base font-medium rounded-full bg-black text-white hover:bg-gray-800 transition-all duration-300 mb-8">
+            <Button className="px-18 py-1 sm:py-4 text-sm sm:text-base font-medium rounded-full bg-black text-white hover:bg-gray-800 transition-all duration-300 mb-12">
               {hero.Button}
             </Button>
 
             {/* Below Button Image */}
-            <div className="mb-8 max-w-[600px]">
+            <div className="mb-2 max-w-[600px]">
               <Image
                 src={fetchImage(IMAGES.EXTRA)}
                 alt={hero.BelowButtonImageAlt || "Showcase"}

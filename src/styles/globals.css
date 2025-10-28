@@ -1,6 +1,9 @@
+
+import 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
   --color-background: #ffffff;
