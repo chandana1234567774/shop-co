@@ -13,13 +13,12 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const [showBanner, setShowBanner] = useState(true); // ✅ added for black top line
+  const [showBanner, setShowBanner] = useState(true);
 
   const navbar = en.Navbar || {};
   const searchPlaceholder = en.SearchPlaceholder || "";
   const { CART, USER } = IMAGES;
 
-  // ✅ Load initial cart count and listen for updates
   useEffect(() => {
     const getCartCount = () => {
       if (typeof window === "undefined") return 0;
@@ -30,10 +29,8 @@ export default function Navbar() {
     };
 
     setCartCount(getCartCount());
-
     const handleCartUpdate = () => setCartCount(getCartCount());
     window.addEventListener("cartUpdated", handleCartUpdate);
-
     return () => window.removeEventListener("cartUpdated", handleCartUpdate);
   }, []);
 
@@ -49,15 +46,15 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ✅ Black Top Announcement Bar */}
+      {/* ✅ Offer Banner */}
       {showBanner && (
-        <div className="bg-black text-white py-2 px-5 md:px-10 flex items-center justify-between fixed top-0 left-0 right-0 z-50 font-satoshi">
+        <div className="bg-black text-white h-[32px] px-5 md:px-10 flex items-center justify-between fixed top-0 left-0 right-0 z-50 font-satoshi">
           <div className="flex-1 text-center">
-            <p className="font-satoshi font-normal text-[14px] leading-[100%] text-gray-300">
+            <p className="font-satoshi font-normal text-[13px] text-gray-300">
               Sign up and get 20% off your first order.{" "}
               <Link
                 href="/signup"
-                className="underline font-satoshi font-normal text-[14px] leading-[100%] text-white hover:text-gray-100 transition-colors"
+                className="underline text-white hover:text-gray-100 transition-colors"
               >
                 Sign Up Now
               </Link>
@@ -69,24 +66,23 @@ export default function Navbar() {
             className="text-white hover:text-gray-300 transition-colors ml-4"
             aria-label="Close banner"
           >
-            <FiX className="w-5 h-5" />
+            <FiX className="w-4 h-4" />
           </button>
         </div>
       )}
 
-      {/* ✅ Main Navbar */}
+      {/* ✅ Navbar */}
       <nav
-        className="bg-white shadow-md px-5 md:px-10 py-4 flex items-center justify-between w-full fixed left-0 right-0 z-40"
+        className="bg-white shadow-md px-6 md:px-20 py-3 flex items-center justify-between w-full fixed left-0 right-0 z-40 transition-all"
         style={{
-          top: showBanner ? "40px" : "0px", // shifts navbar down when banner visible
-          transition: "top 0.3s ease",
+          top: showBanner ? "32px" : "0px",
         }}
       >
         {/* LEFT: Logo + Links */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-10">
           <Link href="/">
             <h1 className="text-2xl md:text-3xl font-integral font-extrabold text-gray-900 tracking-wide cursor-pointer">
-              {navbar.Logo || "ShopEase"}
+              {navbar.Logo}
             </h1>
           </Link>
 
@@ -114,14 +110,21 @@ export default function Navbar() {
                 </svg>
               </span>
 
+              {/* ✅ Fixed Dropdown - stays open when hovering */}
               {isDropdownOpen && (
-                <ul className="absolute left-0 top-8 bg-white shadow-lg rounded-xl py-3 px-4 w-44 space-y-2 border border-gray-100 z-50">
+                <ul
+                  className="absolute left-0 top-8 bg-white shadow-lg rounded-xl py-3 px-4 w-44 space-y-2 border border-gray-100 z-50"
+                  onMouseEnter={() => setIsDropdownOpen(true)}
+                  onMouseLeave={() => setIsDropdownOpen(false)}
+                >
                   {["Men", "Women", "Kids", "Accessories"].map((item) => (
-                    <li
-                      key={item}
-                      className="hover:text-black cursor-pointer transition-colors"
-                    >
-                      {item}
+                    <li key={item}>
+                      <Link
+                        href={`/product/${item.toLowerCase()}`}
+                        className="block hover:text-black hover:bg-gray-50 px-2 py-1.5 rounded cursor-pointer transition-colors"
+                      >
+                        {item}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -152,26 +155,28 @@ export default function Navbar() {
         </div>
 
         {/* RIGHT: Search + Icons */}
-        <div className="flex items-center gap-3 md:gap-5">
-          {/* Desktop Search */}
-          <div className="hidden lg:flex w-[18rem] relative">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        <div className="flex items-center gap-4 md:gap-6">
+          {/* ✅ Search bar (visible only on laptop/desktop) */}
+          <div
+            className="hidden md:flex w-[22rem] lg:w-[28rem] h-[2.5rem] relative rounded-full"
+            style={{ backgroundColor: "#F0F0F0" }}
+          >
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <Input
               placeholder={searchPlaceholder}
-              className="pl-10 pr-4 w-full py-2 rounded-full border border-gray-300 focus:border-gray-600 focus:ring-1 focus:ring-gray-600 transition"
+              className="pl-10 pr-4 w-full py-2.5 rounded-full border-none bg-[#F0F0F0] focus:ring-1 focus:ring-gray-600 transition text-base"
             />
           </div>
 
-          {/* Icons */}
+          {/* Cart + User Icons */}
           <div className="flex items-center gap-4">
-            {/* Cart Icon with badge */}
             <div className="relative">
               <Link href="/cart">
                 <Image
                   src={fetchImage(CART)}
                   alt="Cart"
-                  width={24}
-                  height={24}
+                  width={26}
+                  height={26}
                   className="cursor-pointer hover:scale-110 transition-transform"
                 />
               </Link>
@@ -183,12 +188,11 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* User Icon */}
             <Image
               src={fetchImage(USER)}
               alt="User"
-              width={24}
-              height={24}
+              width={26}
+              height={26}
               className="cursor-pointer hover:scale-110 transition-transform"
             />
           </div>
@@ -206,7 +210,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* MOBILE MENU */}
+        {/* ✅ Mobile Dropdown */}
         {isMenuOpen && (
           <div className="absolute top-16 left-0 w-full bg-white shadow-md border-t border-gray-100 lg:hidden z-50">
             <ul className="flex flex-col items-center py-4 space-y-4 text-gray-700 font-medium">
@@ -230,12 +234,12 @@ export default function Navbar() {
                 {navbar.Brands || "Brands"}
               </li>
 
-              {/* Mobile Search */}
-              <div className="flex items-center border border-gray-300 rounded-full px-4 py-2 w-10/12 focus-within:border-gray-600 transition">
+              {/* ✅ Fixed Mobile Search Bar */}
+              <div className="flex items-center rounded-full px-4 py-2 w-10/12 bg-gray-50 focus-within:bg-white transition">
                 <FiSearch className="mr-2 text-gray-400" />
                 <Input
                   placeholder={searchPlaceholder}
-                  className="w-full text-sm pl-0"
+                  className="w-full text-sm pl-0 border-none bg-transparent focus:ring-0 focus:outline-none"
                 />
               </div>
             </ul>
@@ -243,8 +247,8 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Spacer to prevent content from hiding under fixed navbar */}
-      <div style={{ height: showBanner ? "104px" : "64px" }}></div>
+      {/* ✅ Spacer */}
+      <div style={{ height: showBanner ? "72px" : "56px" }}></div>
     </>
   );
 }

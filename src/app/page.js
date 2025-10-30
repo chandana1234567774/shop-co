@@ -1,5 +1,6 @@
 "use client";
 
+import BrandsBar from "@/components/organisms/BrandsBar";
 import BrowseStyle from "@/components/organisms/BrowseStyle";
 import FooterSection from "@/components/organisms/Footer";
 import HappyCustomersSection from "@/components/organisms/HappyCustomers";
@@ -11,7 +12,7 @@ export default function HomePage() {
   return (
     <main className="relative w-full min-h-screen bg-white">
       <Hero />
-
+      <BrandsBar />
       <NewArrivals />
       <TopSelling />
       <BrowseStyle />

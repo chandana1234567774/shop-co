@@ -33,7 +33,7 @@ export default function BrowseStyle() {
             </div>
 
             {/* === Card 2 === */}
-            <div className="relative rounded-2xl overflow-hidden w-[108%] h-[280px] sm:h-[300px] md:h-[340px] justify-self-end">
+            <div className="relative rounded-2xl overflow-hidden w-[125%] h-[250px] sm:h-[300px] md:h-[340px] justify-self-start">
               <Image
                 src={fetchImage(BROWSE_STYLES[1].image)}
                 alt={BROWSE_STYLES[1].alt}
@@ -41,7 +41,7 @@ export default function BrowseStyle() {
                 className="object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
               />
               <h3 className="absolute top-6 left-6 text-black font-integral text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                {labels[1]}
+                {labels[2]}
               </h3>
             </div>
 
