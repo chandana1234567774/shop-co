@@ -1,4 +1,4 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 
 
 :root {
@@ -63,4 +63,95 @@ body {
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+} */
+
+@import "tailwindcss";
+
+/* 🌈 Base Theme Variables */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* 🎨 Typography Variables */
+  --font-integral: "Integral CF", sans-serif;
+  --font-satoshi:
+    "Satoshi", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
+}
+
+/* 🌙 Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* 🖋️ Tailwind Theme Inline */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-satoshi);
+  --font-heading: var(--font-integral);
+}
+
+/* 🧱 Global Body Styling */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-satoshi);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 🔤 Integral CF (for Headings) */
+@font-face {
+  font-family: "Integral CF";
+  src:
+    url("/fonts/IntegralCF-Bold.woff2") format("woff2"),
+    url("/fonts/IntegralCF-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 🔤 Satoshi (Text Font) */
+@font-face {
+  font-family: "Satoshi";
+  src:
+    url("/fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("/fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src:
+    url("/fonts/Satoshi-Medium.woff2") format("woff2"),
+    url("/fonts/Satoshi-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src:
+    url("/fonts/Satoshi-Bold.woff2") format("woff2"),
+    url("/fonts/Satoshi-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ✨ Optional Utility Classes */
+.font-satoshi {
+  font-family: var(--font-satoshi);
+}
+
+.font-integral {
+  font-family: var(--font-integral);
 }

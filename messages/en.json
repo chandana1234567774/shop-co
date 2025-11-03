@@ -7,7 +7,9 @@
     "NewArrivals": "New Arrivals",
     "Brands": "Brands"
   },
+
   "SearchPlaceholder": "Search for products...",
+
   "Hero": {
     "HeadlineLine1": "FIND CLOTHES",
     "HeadlineLine2": "THAT MATCHES",
@@ -18,6 +20,7 @@
     "BackgroundAlt": "Stylish Fashion Models",
     "BelowButtonImageAlt": "Fashion Showcase"
   },
+
   "BrandsBar": {
     "Versace": "VERSACE",
     "Zara": "ZARA",
@@ -25,6 +28,7 @@
     "Prada": "PRADA",
     "CalvinKlein": "Calvin Klein"
   },
+
   "Sections": {
     "NewArrivals": "NEW ARRIVALS",
     "TopSelling": "TOP SELLING",
@@ -38,51 +42,54 @@
       "Button": "Subscribe to Newsletter"
     }
   },
+
   "Buttons": {
     "AddToCart": "Add to Cart",
     "Like": "Like",
     "Share": "Share",
     "ViewAll": "View All"
   },
+
   "HappyCustomers": {
     "Reviews": [
       {
         "Name": "Sarah M.",
-        "Review": "I'm blown away by the quality and style of the clothes I received from Shopco. From casual wear to elegant dresses, every piece I’ve bought has exceeded my expectations.",
+        "Review": "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I’ve bought has exceeded my expectations.",
         "Rating": 5
       },
       {
         "Name": "Alex K.",
-        "Review": "Finding clothes that align with my personal style used to be a challenge until I discovered Shopco. The range of options they offer is truly remarkable, catering to various tastes.",
+        "Review": "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to various tastes.",
         "Rating": 5
       },
       {
         "Name": "James L.",
-        "Review": "As someone who's always on the lookout for unique fashion pieces, I’m thrilled to have stumbled upon Shopco. Their selection is diverse, trendy, and top quality.",
+        "Review": "As someone who's always on the lookout for unique fashion pieces, I’m thrilled to have stumbled upon Shop.co. Their selection is diverse, trendy, and top quality.",
         "Rating": 5
       },
       {
         "Name": "Michael Brown",
-        "Rating": 4,
-        "Review": "Good experience overall. The fabric feels premium and durable."
+        "Review": "Good experience overall. The fabric feels premium and durable.",
+        "Rating": 4
       },
       {
         "Name": "Sophia Turner",
-        "Rating": 5,
-        "Review": "Excellent service and quick delivery. The quality exceeded my expectations!"
+        "Review": "Excellent service and quick delivery. The quality exceeded my expectations!",
+        "Rating": 5
       },
       {
         "Name": "Liam Carter",
-        "Rating": 4,
-        "Review": "Very comfortable and stylish. Got so many compliments wearing this!"
+        "Review": "Very comfortable and stylish. Got so many compliments wearing this!",
+        "Rating": 4
       },
       {
         "Name": "Olivia Green",
-        "Rating": 5,
-        "Review": "Fantastic experience! I’ll definitely recommend this store to my friends."
+        "Review": "Fantastic experience! I’ll definitely recommend this store to my friends.",
+        "Rating": 5
       }
     ]
   },
+
   "Footer": {
     "BrandName": "SHOP.CO",
     "Description": "We have clothes that suit your style and which you're proud to wear. From women to men.",
@@ -117,20 +124,22 @@
     "BottomText": "Shop.co © 2000–2023, All Rights Reserved",
     "Payments": ["visa.png", "mastercard.png", "paypal.png", "applepay.png"]
   },
+
   "CartPage": {
-    "BreadcrumbHome": "Home",
-    "BreadcrumbCart": "Cart",
-    "Title": "YOUR CART",
-    "EmptyMessage": "Your cart is empty.",
-    "OrderSummaryTitle": "Order Summary",
-    "SubtotalLabel": "Subtotal",
-    "DiscountLabel": "Discount",
-    "DeliveryLabel": "Delivery Fee",
-    "TotalLabel": "Total",
-    "PromoPlaceholder": "Add promo code",
-    "ApplyButton": "Apply",
-    "CheckoutButton": "Go to Checkout"
+    "breadcrumbHome": "Home",
+    "breadcrumbCart": "Cart",
+    "title": "YOUR CART",
+    "emptyCart": "Your cart is empty.",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "discount": "Discount (-20%)",
+    "deliveryFee": "Delivery Fee",
+    "total": "Total",
+    "promoPlaceholder": "Add promo code",
+    "apply": "Apply",
+    "checkout": "Go to Checkout"
   },
+
   "ProductCard": {
     "AddButton": "Add to Cart",
     "AddingText": "Adding...",
@@ -138,6 +147,7 @@
     "WishlistTooltip": "Add to wishlist",
     "ShareTooltip": "Share product"
   },
+
   "PaymentPage": {
     "Title": "Payment Details",
     "NameLabel": "Full Name",
@@ -145,7 +155,7 @@
     "CardNumberLabel": "Card Number",
     "CardNumberPlaceholder": "1234 ---- ---- ---- ----",
     "CcvLabel": "CCV",
-    "CcvPlaceholder": "- - - ",
+    "CcvPlaceholder": "- - -",
     "ExpiryLabel": "Expiry Date",
     "ExpiryPlaceholder": "MM / YY",
     "CompletePaymentButton": "Complete Payment",
@@ -156,27 +166,27 @@
     "TotalLabel": "Total",
     "PaymentSuccessMessage": "Payment Successful!"
   },
+
   "CategoryPage": {
-    "Title": "Casual",
-    "Filters": {
-      "Heading": "Filters",
-      "Color": "Color",
-      "Size": "Size",
-      "Price": "Price",
-      "DressStyle": "Dress Style",
-      "Apply": "Apply Filter"
-    },
-    "SortBy": "Sort by: Most Popular",
-    "Newsletter": {
-      "Heading": "STAY UP TO DATE ABOUT OUR LATEST OFFERS",
-      "Placeholder": "Enter your email address",
-      "Button": "Subscribe to Newsletter"
-    }
+    "breadcrumbHome": "Home",
+    "breadcrumbCategory": "Casual",
+    "filters": "Filters",
+    "category": "Category",
+    "price": "Price",
+    "colors": "Colors",
+    "size": "Size",
+    "applyFilter": "Apply Filter",
+    "sortBy": "Sort by",
+    "mostPopular": "Most Popular",
+    "lowestPrice": "Lowest Price",
+    "highestPrice": "Highest Price",
+    "paginationPrev": "Prev",
+    "paginationNext": "Next"
   },
+
   "ProductPage": {
     "breadcrumbHome": "Home",
     "breadcrumbShop": "Shop",
-    "breadcrumbMen": "Men",
     "breadcrumbCategory": "T-shirts",
     "productName": "ONE LIFE GRAPHIC T-SHIRT",
     "rating": 4.5,
@@ -184,7 +194,7 @@
     "price": 260,
     "originalPrice": 300,
     "discount": 40,
-    "description": "This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
+    "description": "This graphic t-shirt is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
     "colors": [
       { "name": "Olive Green", "code": "#6B7C4A" },
       { "name": "Navy Blue", "code": "#2C3E50" },

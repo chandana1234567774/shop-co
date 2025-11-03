@@ -50,11 +50,12 @@ export const IMAGES = {
   STAR_FULL: "home-page/Star 1.png",
   STAR_HALF: "home-page/Star 5.png",
   VERIFIED_ICON: "home-page/Frame (2).png",
-  SHIRT:"sec-page/Frame 32.png",
-  MIX_SHIRT:"sec-page/Frame 33.png",
-  BROWN_SHIRT:"sec-page/Frame 34.png",
-  BLACK_SHIRT:"sec-page/Frame 38.png",
-
+  SHIRT: "sec-page/Frame 32.png",
+  MIX_SHIRT: "sec-page/Frame 33.png",
+  BROWN_SHIRT: "sec-page/Frame 34.png",
+  BLACK_SHIRT: "sec-page/Frame 38.png",
+  FILTER_ICON: "sec-page/Frame (3).png",
+  PROMO_CODE: "sec-page/Frame (4).png",
 };
 
 export const IMAGE_STORAGE_TYPE = {

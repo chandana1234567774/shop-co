@@ -8,19 +8,37 @@ import en from "@messages/en.json";
 
 export default function ReviewSection({ reviews, renderStars }) {
   const productData = en.ProductPage || {};
-  const { VERIFIED_ICON } = IMAGES;
+  const { VERIFIED_ICON, FILTER_ICON } = IMAGES; // ✅ added filter icon
 
   return (
     <div className="py-8">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <h2 className="text-2xl font-bold">
           {productData.allReviews} ({reviews.length})
         </h2>
+
+        {/* Right side controls */}
         <div className="flex items-center gap-3">
-          <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition">
+          {/* Filter Button */}
+          <button className="p-3 rounded-full bg-gray-100 hover:bg-gray-100 transition flex items-center justify-center">
+            <Image
+              src={fetchImage(FILTER_ICON)}
+              alt="Filter"
+              width={20}
+              height={20}
+            />
+          </button>
+
+          <div className="relative">
+            <select className="appearance-none px-3 py-2 rounded-full bg-gray-100 border-none cursor-pointer focus:outline-none pr-3">
+              <option>{productData.latest}</option>
+              <option>{productData.oldest}</option>
+              <option>{productData.highestRated}</option>
+            </select>
+
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 text-gray-500 absolute right-8 top-1/2 transform -translate-y-1/2 pointer-events-none"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -29,15 +47,12 @@ export default function ReviewSection({ reviews, renderStars }) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                d="M19 9l-7 7-7-7"
               />
             </svg>
-          </button>
-          <select className="px-4 py-2 rounded-full bg-gray-100 border-none cursor-pointer focus:outline-none">
-            <option>{productData.latest}</option>
-            <option>{productData.oldest}</option>
-            <option>{productData.highestRated}</option>
-          </select>
+          </div>
+
+          {/* Write Review Button */}
           <button className="px-6 py-2 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
             {productData.writeReview}
           </button>

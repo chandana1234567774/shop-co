@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiMinus, FiPlus, FiShoppingCart, FiCheck } from "react-icons/fi";
+import { useParams } from "next/navigation";
+import { FiMinus, FiPlus, FiCheck } from "react-icons/fi";
 import fetchImage from "@/utils/image-utils";
 import { IMAGES } from "@/constants/image-constants";
 import en from "@messages/en.json";
@@ -11,35 +12,75 @@ import ReviewSection from "@/components/organisms/ReviewSection";
 import YouMightAlsoLikeSection from "@/components/organisms/MightSection";
 
 export default function ProductPage() {
+  const params = useParams();
+  const slug = params?.slug;
+
   const [selectedColor, setSelectedColor] = useState(0);
   const [selectedSize, setSelectedSize] = useState("Large");
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState(0);
   const [activeTab, setActiveTab] = useState("reviews");
-  const [isAdded, setIsAdded] = useState(false); // ✅ track added-to-cart state
+  const [isAdded, setIsAdded] = useState(false);
+  const [product, setProduct] = useState(null);
 
   const productData = en.ProductPage || {};
-  const {
-    PRODUCT_MAIN,
-    PRODUCT_THUMB_1,
-    PRODUCT_THUMB_2,
-    PRODUCT_THUMB_3,
-    STAR_FULL,
-    STAR_HALF,
-  } = IMAGES;
+  const { STAR_FULL, STAR_HALF } = IMAGES;
 
-  const product = {
-    name: productData.productName,
-    rating: productData.rating,
-    reviews: productData.reviewCount,
-    price: productData.price,
-    originalPrice: productData.originalPrice,
-    discount: productData.discount,
-    description: productData.description,
-    colors: productData.colors || [],
-    sizes: productData.sizes || [],
-    images: [PRODUCT_MAIN, PRODUCT_THUMB_1, PRODUCT_THUMB_2, PRODUCT_THUMB_3],
-  };
+  useEffect(() => {
+    // Get product data from your products list based on slug
+    // This could come from your NewArrivals section or a centralized product data source
+    const productName = slug?.replace(/-/g, " ");
+
+    // Example: Fetch from your products data
+    // Replace this with your actual product data source
+    const allProducts = en.NewArrivalsSection?.products || [];
+    const foundProduct = allProducts.find(
+      (p) => p.name.toLowerCase() === productName?.toLowerCase()
+    );
+
+    if (foundProduct) {
+      setProduct({
+        name: foundProduct.name,
+        rating: foundProduct.rating || productData.rating,
+        reviews: productData.reviewCount,
+        price: foundProduct.price,
+        originalPrice: foundProduct.oldPrice || productData.originalPrice,
+        discount:
+          foundProduct.discount?.replace("-", "").replace("%", "") ||
+          productData.discount,
+        description: productData.description,
+        colors: productData.colors || [],
+        sizes: productData.sizes || [],
+        // Use the product's actual image, and create thumbnails
+        // If you have multiple images per product, use them here
+        images: [
+          foundProduct.image,
+          foundProduct.image, // Duplicate for now, or add actual thumbnail images
+          foundProduct.image,
+          foundProduct.image,
+        ],
+      });
+    } else {
+      // Fallback to default product data
+      setProduct({
+        name: productData.productName,
+        rating: productData.rating,
+        reviews: productData.reviewCount,
+        price: productData.price,
+        originalPrice: productData.originalPrice,
+        discount: productData.discount,
+        description: productData.description,
+        colors: productData.colors || [],
+        sizes: productData.sizes || [],
+        images: [
+          IMAGES.PRODUCT_MAIN,
+          IMAGES.PRODUCT_THUMB_1,
+          IMAGES.PRODUCT_THUMB_2,
+          IMAGES.PRODUCT_THUMB_3,
+        ],
+      });
+    }
+  }, [slug]);
 
   const reviews = productData.reviews || [];
 
@@ -49,7 +90,6 @@ export default function ProductPage() {
       setQuantity((prev) => prev - 1);
   };
 
-  // ✅ Add to cart without alert
   const handleAddToCart = () => {
     const cartItem = {
       name: product.name,
@@ -65,10 +105,9 @@ export default function ProductPage() {
     localStorage.setItem("cart", JSON.stringify(existingCart));
 
     window.dispatchEvent(new Event("cartUpdated"));
-    setIsAdded(true); // ✅ Change button state
+    setIsAdded(true);
   };
 
-  // ✅ Render stars
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -103,10 +142,19 @@ export default function ProductPage() {
     return stars;
   };
 
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white">
+      <div className="pt-8" />
       {/* Breadcrumb */}
-      <div className="container mx-auto px-6 md:px-20 py-6">
+      <div className="container mx-auto px-6 md:px-20 py-6 ">
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <Link href="/" className="hover:text-black">
             {productData.breadcrumbHome}
@@ -182,12 +230,16 @@ export default function ProductPage() {
                 <span className="text-3xl font-bold text-gray-900">
                   ${product.price}
                 </span>
-                <span className="text-2xl text-gray-400 line-through">
-                  ${product.originalPrice}
-                </span>
-                <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
-                  -{product.discount}%
-                </span>
+                {product.originalPrice && (
+                  <span className="text-2xl text-gray-400 line-through">
+                    ${product.originalPrice}
+                  </span>
+                )}
+                {product.discount && (
+                  <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                    -{product.discount}%
+                  </span>
+                )}
               </div>
 
               <p className="text-gray-600 mb-6 leading-relaxed">
@@ -270,20 +322,18 @@ export default function ProductPage() {
                 </button>
               </div>
 
-              {/* ✅ Updated button */}
               {isAdded ? (
                 <Link
                   href="/cart"
-                  className="flex-1 bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2"
+                  className="flex-1 bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition flex items-center justify-center"
                 >
                   Go to Cart
                 </Link>
               ) : (
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition flex items-center justify-center gap-2"
+                  className="flex-1 bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition flex items-center justify-center"
                 >
-                  <FiShoppingCart className="w-5 h-5" />
                   {productData.addToCart}
                 </button>
               )}
@@ -293,7 +343,7 @@ export default function ProductPage() {
 
         {/* Tabs & Reviews */}
         <div className="mt-16">
-          <div className="flex items-center justify-center border-b border-gray-200 gap-8">
+          <div className="flex items-center justify-center border-b border-gray-200 gap-12 md:gap-55">
             {["details", "reviews", "faqs"].map((tab) => (
               <button
                 key={tab}
