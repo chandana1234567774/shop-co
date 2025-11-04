@@ -1,12 +1,37 @@
 "use client";
 
+import { useMemo } from "react";
+import { useParams } from "next/navigation";
 import en from "@messages/en.json";
 import ProductCard from "@/components/molecules/ProductCard";
 import { PRODUCTS } from "@/constants/product-constants";
 
 export default function YouMightAlsoLikeSection() {
   const t = en.ProductPage || {};
-  const products = PRODUCTS.youMightAlsoLike || [];
+  const params = useParams();
+  const currentSlug = params?.slug;
+
+  // Get current product name from slug
+  const currentProductName = currentSlug?.replace(/-/g, " ").toLowerCase();
+
+  // Generate dynamic related products
+  const relatedProducts = useMemo(() => {
+    // Get all products from all categories
+    const allProducts = Object.values(PRODUCTS)
+      .flat()
+      .filter((product) => product && product.id); // Ensure valid products
+
+    // Filter out the current product
+    const otherProducts = allProducts.filter(
+      (product) => product.name.toLowerCase() !== currentProductName
+    );
+
+    // Shuffle array to get random products
+    const shuffled = otherProducts.sort(() => 0.5 - Math.random());
+
+    // Return 4 random products
+    return shuffled.slice(0, 4);
+  }, [currentProductName]);
 
   return (
     <section className="py-20 bg-white border-t border-gray-200">
@@ -16,7 +41,7 @@ export default function YouMightAlsoLikeSection() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {relatedProducts.map((product) => (
             <ProductCard
               key={product.id}
               id={product.id}

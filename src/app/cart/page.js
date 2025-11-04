@@ -6,13 +6,14 @@ import Link from "next/link";
 import { FiTrash2 } from "react-icons/fi";
 import { ArrowRight } from "lucide-react";
 import en from "@messages/en.json";
-import fetchImage from "@/utils/image-utils"; // ✅ using your existing utility
+import fetchImage from "@/utils/image-utils"; // ✅ For local image handling
 
 export default function CartPage() {
   const t = en.CartPage;
   const [cart, setCart] = useState([]);
   const [promoCode, setPromoCode] = useState("");
 
+  // ✅ Load cart from localStorage
   useEffect(() => {
     try {
       const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -22,6 +23,7 @@ export default function CartPage() {
     }
   }, []);
 
+  // ✅ Update item quantity
   const handleQuantityChange = (index, change) => {
     const updatedCart = [...cart];
     const newQty = Math.max(1, (updatedCart[index].quantity || 1) + change);
@@ -31,6 +33,7 @@ export default function CartPage() {
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
+  // ✅ Delete item from cart
   const handleDelete = (index) => {
     const updatedCart = cart.filter((_, i) => i !== index);
     setCart(updatedCart);
@@ -38,6 +41,7 @@ export default function CartPage() {
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
+  // ✅ Totals
   const subtotal = cart.reduce(
     (sum, item) => sum + (item.price || 0) * (item.quantity || 1),
     0
@@ -45,6 +49,16 @@ export default function CartPage() {
   const discount = subtotal * 0.2;
   const deliveryFee = 15;
   const total = subtotal - discount + deliveryFee;
+
+  // ✅ Safe image getter (prevents .startsWith error)
+  const getSafeImage = (image) => {
+    if (!image) return fetchImage("home-page/Frame 32.png");
+    if (typeof image === "string") {
+      if (image.startsWith("http")) return image;
+      return fetchImage(image);
+    }
+    return fetchImage("home-page/Frame 32.png");
+  };
 
   return (
     <div className="px-6 md:px-12 lg:px-16 xl:px-24 pb-20 bg-gray-50 min-h-screen">
@@ -68,7 +82,7 @@ export default function CartPage() {
         <p className="text-gray-600">{t.emptyCart}</p>
       ) : (
         <div className="flex flex-col lg:flex-row gap-4 max-w-7xl">
-          {/* Cart Items */}
+          {/* 🛒 Cart Items */}
           <div className="w-full lg:w-[60%]">
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
               {cart.map((item, index) => (
@@ -77,11 +91,7 @@ export default function CartPage() {
                     {/* Product Info */}
                     <div className="flex items-center gap-4 w-full sm:w-auto">
                       <Image
-                        src={
-                          item.image && item.image.startsWith("http")
-                            ? item.image
-                            : fetchImage(item.image) // ✅ use your utility for local assets
-                        }
+                        src={getSafeImage(item.image)}
                         alt={item.name || "Product image"}
                         width={90}
                         height={90}
@@ -151,7 +161,7 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* Order Summary */}
+          {/* 💳 Order Summary */}
           <div className="w-full lg:w-[40%] flex justify-start">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 w-full lg:w-[110%] xl:w-[115%] h-fit">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
@@ -184,11 +194,11 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* ✅ Promo Code with Icon */}
+              {/* 🎟️ Promo Code Input */}
               <div className="flex items-center gap-2 mt-5">
                 <div className="relative flex-1">
                   <Image
-                    src={fetchImage("sec-page/Frame (4).png")} // ✅ uses your utils
+                    src={fetchImage("sec-page/Frame (4).png")}
                     alt="Promo Code Icon"
                     width={18}
                     height={18}
@@ -209,7 +219,7 @@ export default function CartPage() {
                 </button>
               </div>
 
-              {/* Checkout Button */}
+              {/* ✅ Checkout Button */}
               <Link href="/payment">
                 <button className="mt-5 w-full bg-black text-white py-2.5 rounded-full font-medium text-sm hover:bg-gray-800 transition flex items-center justify-center gap-2 group">
                   {t.checkout}

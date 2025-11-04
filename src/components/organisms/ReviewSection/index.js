@@ -11,11 +11,12 @@ export default function ReviewSection({ reviews, renderStars }) {
   const { VERIFIED_ICON, FILTER_ICON } = IMAGES; // ✅ added filter icon
 
   return (
-    <div className="py-8">
+    <div className="py-8 mb-12">
       {/* Header */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <h2 className="text-2xl font-bold">
-          {productData.allReviews} ({reviews.length})
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          {productData.allReviews}
+          <span className="text-gray-500 font-[Satoshi-Regular]">(450)</span>
         </h2>
 
         {/* Right side controls */}
