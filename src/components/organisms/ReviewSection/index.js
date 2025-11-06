@@ -8,21 +8,21 @@ import en from "@messages/en.json";
 
 export default function ReviewSection({ reviews, renderStars }) {
   const productData = en.ProductPage || {};
-  const { VERIFIED_ICON, FILTER_ICON } = IMAGES; // ✅ added filter icon
+  const { VERIFIED_ICON, FILTER_ICON } = IMAGES;
 
   return (
-    <div className="py-8 mb-12">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-        <h2 className="text-2xl font-bold flex items-center gap-2">
+    <div className="py-8 md:py-12">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
           {productData.allReviews}
-          <span className="text-gray-500 font-[Satoshi-Regular]">(450)</span>
+          <span className="text-gray-500 text-lg font-normal">(450)</span>
         </h2>
 
-        {/* Right side controls */}
-        <div className="flex items-center gap-3">
-          {/* Filter Button */}
-          <button className="p-3 rounded-full bg-gray-100 hover:bg-gray-100 transition flex items-center justify-center">
+        {/* ACTIONS */}
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Filter Icon */}
+          <button className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center">
             <Image
               src={fetchImage(FILTER_ICON)}
               alt="Filter"
@@ -31,15 +31,16 @@ export default function ReviewSection({ reviews, renderStars }) {
             />
           </button>
 
+          {/* Sort Dropdown */}
           <div className="relative">
-            <select className="appearance-none px-3 py-2 rounded-full bg-gray-100 border-none cursor-pointer focus:outline-none pr-3">
+            <select className="appearance-none px-4 py-2 rounded-full bg-gray-100 text-sm focus:outline-none pr-8 cursor-pointer hover:bg-gray-200 transition">
               <option>{productData.latest}</option>
               <option>{productData.oldest}</option>
               <option>{productData.highestRated}</option>
             </select>
 
             <svg
-              className="w-4 h-4 text-gray-500 absolute right-8 top-1/2 transform -translate-y-1/2 pointer-events-none"
+              className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -54,21 +55,21 @@ export default function ReviewSection({ reviews, renderStars }) {
           </div>
 
           {/* Write Review Button */}
-          <button className="px-6 py-2 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition">
+          <button className="px-6 py-2 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition text-sm">
             {productData.writeReview}
           </button>
         </div>
       </div>
 
-      {/* Reviews Grid */}
+      {/* REVIEWS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {reviews.map((review) => (
           <div
             key={review.id}
-            className="border border-gray-200 rounded-xl p-6 relative"
+            className="border border-gray-200 rounded-xl p-6 relative bg-white shadow-sm hover:shadow-md transition"
           >
-            {/* Three Dots */}
-            <button className="absolute top-6 right-6 text-gray-400 hover:text-black transition">
+            {/* Menu Three Dots */}
+            <button className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 transition">
               <BsThreeDots className="w-5 h-5" />
             </button>
 
@@ -77,9 +78,9 @@ export default function ReviewSection({ reviews, renderStars }) {
               {renderStars(review.rating)}
             </div>
 
-            {/* Name and Verified */}
+            {/* Name + Verified */}
             <div className="flex items-center gap-2 mb-3">
-              <h3 className="font-bold text-lg">{review.name}</h3>
+              <h3 className="font-semibold text-lg">{review.name}</h3>
               {review.verified && (
                 <Image
                   src={fetchImage(VERIFIED_ICON)}
@@ -91,21 +92,21 @@ export default function ReviewSection({ reviews, renderStars }) {
             </div>
 
             {/* Review Text */}
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed mb-4 text-[15px]">
               {review.review}
             </p>
 
             {/* Date */}
-            <div className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500">
               {productData.postedOn} {review.date}
-            </div>
+            </p>
           </div>
         ))}
       </div>
 
-      {/* Load More Button */}
-      <div className="flex justify-center mt-8">
-        <button className="px-8 py-3 border-2 border-gray-200 rounded-full font-medium hover:bg-gray-50 transition">
+      {/* LOAD MORE */}
+      <div className="flex justify-center mt-10">
+        <button className="px-10 py-3 border border-gray-300 rounded-full font-medium hover:bg-gray-100 transition text-sm md:text-base">
           {productData.loadMoreReviews}
         </button>
       </div>

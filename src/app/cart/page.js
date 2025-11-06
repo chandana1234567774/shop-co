@@ -6,7 +6,8 @@ import Link from "next/link";
 import { FiTrash2 } from "react-icons/fi";
 import { ArrowRight } from "lucide-react";
 import en from "@messages/en.json";
-import fetchImage from "@/utils/image-utils"; // ✅ For local image handling
+import fetchImage from "@/utils/image-utils";
+import { PRODUCTS } from "@/constants/product-constants";
 
 export default function CartPage() {
   const t = en.CartPage;
@@ -23,6 +24,8 @@ export default function CartPage() {
     }
   }, []);
 
+  console.log(cart, "cart");
+
   // ✅ Update item quantity
   const handleQuantityChange = (index, change) => {
     const updatedCart = [...cart];
@@ -31,6 +34,19 @@ export default function CartPage() {
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     window.dispatchEvent(new Event("cartUpdated"));
+  };
+
+  const findProductImage = (productName) => {
+    // Flatten all product arrays into one list
+    const allProducts = [
+      ...PRODUCTS.newArrivals,
+      ...PRODUCTS.topSelling,
+      ...PRODUCTS.youMightAlsoLike,
+      ...PRODUCTS.categories,
+    ];
+
+    const product = allProducts.find((p) => p.name === productName);
+    return product?.image || fetchImage("home-page/Frame 32.png");
   };
 
   // ✅ Delete item from cart
@@ -50,7 +66,7 @@ export default function CartPage() {
   const deliveryFee = 15;
   const total = subtotal - discount + deliveryFee;
 
-  // ✅ Safe image getter (prevents .startsWith error)
+  // ✅ Safe image getter
   const getSafeImage = (image) => {
     if (!image) return fetchImage("home-page/Frame 32.png");
     if (typeof image === "string") {
@@ -91,8 +107,8 @@ export default function CartPage() {
                     {/* Product Info */}
                     <div className="flex items-center gap-4 w-full sm:w-auto">
                       <Image
-                        src={getSafeImage(item.image)}
-                        alt={item.name || "Product image"}
+                        src={findProductImage(item.name)}
+                        alt={item.name}
                         width={90}
                         height={90}
                         className="object-cover rounded-lg border border-gray-100"
@@ -123,32 +139,33 @@ export default function CartPage() {
                       </div>
                     </div>
 
-                    {/* Delete + Quantity */}
-                    <div className="flex flex-col items-end justify-between h-full w-full sm:w-auto mt-4 sm:mt-0">
-                      <button
-                        onClick={() => handleDelete(index)}
-                        className="text-red-500 hover:text-red-700 transition"
-                        title="Remove item"
-                      >
-                        <FiTrash2 className="w-5 h-5" />
-                      </button>
+                    <div className="flex flex-col sm:flex-col w-full sm:w-auto mt-4 sm:mt-0">
+                      <div className="flex sm:flex-col items-center justify-between w-full sm:w-auto">
+                        <button
+                          onClick={() => handleDelete(index)}
+                          className="text-red-500 hover:text-red-700 transition sm:mb-3"
+                          title="Remove item"
+                        >
+                          <FiTrash2 className="w-5 h-5" />
+                        </button>
 
-                      <div className="flex items-center justify-between bg-gray-100 border border-gray-300 rounded-full px-3 py-1 w-20 mt-15">
-                        <button
-                          onClick={() => handleQuantityChange(index, -1)}
-                          className="text-gray-700 text-base font-bold hover:text-black"
-                        >
-                          −
-                        </button>
-                        <span className="font-medium text-gray-900 text-sm">
-                          {item.quantity || 1}
-                        </span>
-                        <button
-                          onClick={() => handleQuantityChange(index, 1)}
-                          className="text-gray-700 text-base font-bold hover:text-black"
-                        >
-                          +
-                        </button>
+                        <div className="flex items-center justify-between bg-gray-100 border border-gray-300 rounded-full px-3 py-1 w-20 sm:mt-12">
+                          <button
+                            onClick={() => handleQuantityChange(index, -1)}
+                            className="text-gray-700 text-base font-bold hover:text-black"
+                          >
+                            −
+                          </button>
+                          <span className="font-medium text-gray-900 text-sm">
+                            {item.quantity || 1}
+                          </span>
+                          <button
+                            onClick={() => handleQuantityChange(index, 1)}
+                            className="text-gray-700 text-base font-bold hover:text-black"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -161,7 +178,6 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* 💳 Order Summary */}
           <div className="w-full lg:w-[40%] flex justify-start">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 w-full lg:w-[110%] xl:w-[115%] h-fit">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
@@ -194,7 +210,6 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* 🎟️ Promo Code Input */}
               <div className="flex items-center gap-2 mt-5">
                 <div className="relative flex-1">
                   <Image

@@ -4,10 +4,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        integral: ["Integral CF", "sans-serif"],
+        integral: ["IntegralCF", "sans-serif"],
         satoshi: ["Satoshi", "sans-serif"],
       },
     },
   },
+
   plugins: [],
 };

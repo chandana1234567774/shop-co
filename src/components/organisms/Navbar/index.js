@@ -50,7 +50,7 @@ export default function Navbar() {
       {showBanner && (
         <div className="bg-black text-white h-[32px] px-5 md:px-10 flex items-center justify-between fixed top-0 left-0 right-0 z-50 font-satoshi">
           <div className="flex-1 text-center">
-            <p className="font-satoshi font-normal text-[13px] text-gray-300">
+            <p className="font-satoshi font-[400] text-[13px] text-white">
               Sign up and get 20% off your first order.{" "}
               <Link
                 href="/signup"
@@ -81,7 +81,7 @@ export default function Navbar() {
         {/* LEFT: Logo + Links */}
         <div className="flex items-center gap-10">
           <Link href="/">
-            <h1 className="text-2xl md:text-3xl font-integral font-extrabold text-gray-900 tracking-wide cursor-pointer">
+            <h1 className="text-2xl md:text-3xl font-integral font-extrabold text-gray-900 tracking-wide cursor-pointer logo-font-family">
               {navbar.Logo}
             </h1>
           </Link>

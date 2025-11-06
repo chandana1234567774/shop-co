@@ -11,23 +11,23 @@ export default function YouMightAlsoLikeSection() {
   const params = useParams();
   const currentSlug = params?.slug;
 
-  // Get current product name from slug
-  const currentProductName = currentSlug?.replace(/-/g, " ").toLowerCase();
+  // ✅ Get current product name from slug
+  const currentProductName = currentSlug?.toLowerCase();
 
-  // Generate dynamic related products
+  // ✅ Generate related products dynamically
   const relatedProducts = useMemo(() => {
     // Get all products from all categories
-    const allProducts = Object.values(PRODUCTS)
-      .flat()
-      .filter((product) => product && product.id); // Ensure valid products
+    const allProducts = PRODUCTS?.youMightAlsoLike?.filter(
+      (product) => product && product.name
+    );
 
     // Filter out the current product
     const otherProducts = allProducts.filter(
       (product) => product.name.toLowerCase() !== currentProductName
     );
 
-    // Shuffle array to get random products
-    const shuffled = otherProducts.sort(() => 0.5 - Math.random());
+    // Shuffle the array
+    const shuffled = [...otherProducts].sort(() => 0.5 - Math.random());
 
     // Return 4 random products
     return shuffled.slice(0, 4);
@@ -41,15 +41,19 @@ export default function YouMightAlsoLikeSection() {
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {relatedProducts.map((product) => (
+          {relatedProducts.map((product, index) => (
             <ProductCard
-              key={product.id}
+              key={`${product.id || index}-${product.name}`} // ✅ Unique key fix
               id={product.id}
               name={product.name}
-              image={product.image}
+              image={
+                product.image ||
+                product.images?.[0] ||
+                "/images/default-product.jpg"
+              } // ✅ Image fallback
               price={product.price}
               oldPrice={product.oldPrice}
-              rating={product.rating}
+              rating={product.rating || 4.5}
               discount={product.discount}
             />
           ))}

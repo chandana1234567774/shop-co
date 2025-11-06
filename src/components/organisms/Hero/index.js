@@ -7,6 +7,17 @@ import Button from "@/components/atoms/Button";
 import fetchImage from "@/utils/image-utils";
 import { IMAGES } from "@/constants/image-constants";
 
+// Star Image Component
+const StarIcon = ({ className = "", size = 64 }) => (
+  <Image
+    src={fetchImage(IMAGES.STAR)}
+    alt="Star decoration"
+    width={size}
+    height={size}
+    className={className}
+  />
+);
+
 export default function Hero() {
   const [messages, setMessages] = useState({});
 
@@ -21,8 +32,7 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-screen overflow-hidden bg-[#F2F0F1]">
-      {/* ✅ Background Image */}
-      <div className="hidden lg:block absolute right-0 top-[-100px] bottom-[-100px] w-full">
+      <div className="hidden lg:block absolute right-0 top-[-70px] bottom-[-100px] w-full">
         <Image
           src={fetchImage(IMAGES.HERO)}
           alt={hero.BackgroundAlt || "Background"}
@@ -31,6 +41,16 @@ export default function Hero() {
           priority
         />
       </div>
+
+      <StarIcon
+        size={80}
+        className="absolute top-[12%] right-[5%] hidden md:block "
+      />
+
+      <StarIcon
+        size={54}
+        className="absolute top-[40%] left-[50%]  hidden md:block"
+      />
 
       {/* ✅ Main Content */}
       <div className="relative z-10 max-w-[1440px] mx-auto min-h-screen flex flex-col">

@@ -1,5 +1,6 @@
 import Navbar from "@/components/organisms/Navbar";
 import "./globals.css";
+import "../styles/globals.css";
 import FooterSection from "@/components/organisms/Footer";
 import { CartProvider } from "@/context";
 

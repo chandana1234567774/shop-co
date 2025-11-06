@@ -27,39 +27,45 @@ export default function ProductPage() {
 
   // ✅ Load product by slug
   useEffect(() => {
-    const productName = slug?.replace(/-/g, " ");
+    const productName = slug;
     const allProducts = Object.values(PRODUCTS).flat();
 
     const foundProduct = allProducts.find(
       (p) => p.name.toLowerCase() === productName?.toLowerCase()
     );
 
-    if (foundProduct) {
-      const productImages = foundProduct.images?.length
-        ? foundProduct.images
-        : Array(4).fill(foundProduct.image);
+    const productToDisplay = foundProduct || {
+      name: productName || "Product",
+      rating: 4.5,
+      price: 260,
+      oldPrice: 300,
+      discount: "-40%",
+      image: "/images/default-product.jpg",
+      images: [],
+    };
 
-      setProduct({
-        name: foundProduct.name,
-        rating: foundProduct.rating || 4.5,
-        reviews: "8.5/10",
-        price: foundProduct.price,
-        originalPrice: foundProduct.oldPrice || null,
-        discount:
-          foundProduct.discount?.replace("-", "").replace("%", "") || null,
-        description:
-          "This product is perfect for any occasion. Crafted from premium materials, it offers superior comfort and style.",
-        colors: [
-          { name: "Olive", code: "#6B7B4F" },
-          { name: "Dark Green", code: "#3A4D39" },
-          { name: "Navy", code: "#2C3E50" },
-        ],
-        sizes: ["Small", "Medium", "Large", "X-Large"],
-        images: productImages,
-      });
-    } else {
-      setProduct(null);
-    }
+    const productImages = productToDisplay.images?.length
+      ? productToDisplay.images
+      : Array(4).fill(productToDisplay.image);
+
+    setProduct({
+      name: productToDisplay.name,
+      rating: productToDisplay.rating || 4.5,
+      reviews: "8.5/10",
+      price: productToDisplay.price,
+      originalPrice: productToDisplay.oldPrice || null,
+      discount:
+        productToDisplay.discount?.replace("-", "").replace("%", "") || null,
+      description:
+        "This product is perfect for any occasion. Crafted from premium materials, it offers superior comfort and style.",
+      colors: [
+        { name: "Olive", code: "#6B7B4F" },
+        { name: "Dark Green", code: "#3A4D39" },
+        { name: "Navy", code: "#2C3E50" },
+      ],
+      sizes: ["Small", "Medium", "Large", "X-Large"],
+      images: productImages,
+    });
   }, [slug]);
 
   const reviews = productData.reviews || [];
@@ -72,7 +78,7 @@ export default function ProductPage() {
     });
   };
 
-  // ✅ FIXED: Add correct image (mainImage) to cart
+  // ✅ Corrected Add to Cart (no duplicates → quantity increases)
   const handleAddToCart = () => {
     if (!product) return;
 
@@ -80,15 +86,27 @@ export default function ProductPage() {
       name: product.name,
       color: product.colors[selectedColor]?.name,
       size: selectedSize,
-      quantity,
       price: product.price,
-      image: product.images[mainImage], // ✅ use selected image instead of [0]
+      image: product.images[mainImage],
+      quantity,
     };
 
-    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    existingCart.push(cartItem);
-    localStorage.setItem("cart", JSON.stringify(existingCart));
+    let existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
+    const existingIndex = existingCart.findIndex(
+      (item) =>
+        item.name === cartItem.name &&
+        item.color === cartItem.color &&
+        item.size === cartItem.size
+    );
+
+    if (existingIndex !== -1) {
+      existingCart[existingIndex].quantity += quantity;
+    } else {
+      existingCart.push(cartItem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(existingCart));
     window.dispatchEvent(new Event("cartUpdated"));
     setIsAdded(true);
   };
@@ -121,10 +139,8 @@ export default function ProductPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Product not found</h2>
-          <Link href="/" className="text-blue-600 hover:underline">
-            Return to Home
-          </Link>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading product...</p>
         </div>
       </div>
     );
@@ -134,9 +150,9 @@ export default function ProductPage() {
     <div className="min-h-screen bg-white">
       <div className="pt-8" />
 
-      {/* ✅ Breadcrumb */}
-      <div className="container mx-auto px-6 md:px-20 py-6">
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+      {/* Breadcrumb */}
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-6">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
           <Link href="/" className="hover:text-black">
             Home
           </Link>
@@ -145,54 +161,89 @@ export default function ProductPage() {
             Shop
           </Link>
           <span className="text-gray-400">{">"}</span>
-          <span className="text-black font-medium">{product.name}</span>
+          <span className="text-black font-medium truncate">
+            {product.name}
+          </span>
         </div>
       </div>
 
-      {/* ✅ Product Section */}
-      <div className="container mx-auto px-6 md:px-20 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
-          {/* ✅ Left - Images */}
-          <div className="flex gap-4 h-[450px]">
-            {/* Thumbnails */}
-            <div className="flex flex-col gap-3 w-24 md:w-32 h-full justify-between">
-              {product.images.slice(1, 4).map((img, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setMainImage(idx + 1)}
-                  className={`flex-1 rounded-lg overflow-hidden cursor-pointer border-2 transition hover:border-gray-400 ${
-                    mainImage === idx + 1 ? "border-black" : "border-gray-200"
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`Thumbnail ${idx + 1}`}
-                    width={112}
-                    height={110}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* ✅ Main Image */}
-            <div className="flex-1 rounded-2xl overflow-hidden bg-[#f8f8f8] flex items-center justify-center h-full">
+      {/* Product Section */}
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:items-start">
+          {/* Images - Mobile/Tablet: Big Image on Top, Thumbnails Below */}
+          <div className="w-full">
+            {/* Main Image - Mobile/Tablet */}
+            <div className="w-full rounded-2xl overflow-hidden bg-[#f8f8f8] mb-4 aspect-square lg:hidden">
               <div className="relative w-full h-full">
                 <Image
                   src={product.images[mainImage]}
                   alt={product.name}
                   fill
                   className="object-cover"
-                  sizes="(max-width:768px) 100vw, 550px"
                 />
+              </div>
+            </div>
+
+            {/* Thumbnails Below - Mobile/Tablet */}
+            <div className="grid grid-cols-3 gap-3 lg:hidden">
+              {product.images.slice(1, 4).map((img, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setMainImage(idx + 1)}
+                  className={`aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition hover:border-gray-400 ${
+                    mainImage === idx + 1 ? "border-black" : "border-gray-200"
+                  }`}
+                >
+                  <Image
+                    src={img}
+                    alt="thumbnail"
+                    width={150}
+                    height={150}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Layout: Thumbnails on Left, Main Image on Right */}
+            <div className="hidden lg:flex gap-4 h-[550px]">
+              <div className="flex flex-col gap-3 w-32 h-full">
+                {product.images.slice(1, 4).map((img, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setMainImage(idx + 1)}
+                    className={`flex-1 rounded-lg overflow-hidden cursor-pointer border-2 transition hover:border-gray-400 ${
+                      mainImage === idx + 1 ? "border-black" : "border-gray-200"
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt="thumbnail"
+                      width={112}
+                      height={110}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex-1 rounded-2xl overflow-hidden bg-[#f8f8f8]">
+                <div className="relative w-full h-full">
+                  <Image
+                    src={product.images[mainImage]}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* ✅ Right - Product Details */}
-          <div className="flex flex-col justify-between h-[450px]">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 uppercase">
+          {/* Details - Equal Height to Images on Desktop */}
+          <div className="flex flex-col justify-between h-auto lg:h-[550px]">
+            <div className="flex-1 flex flex-col">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase mb-3">
                 {product.name}
               </h1>
 
@@ -205,59 +256,68 @@ export default function ProductPage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl font-bold text-gray-900">
+              <div className="flex items-center gap-2 sm:gap-3 mb-4 flex-wrap">
+                <span className="text-2xl sm:text-3xl font-bold">
                   ${product.price}
                 </span>
                 {product.originalPrice && (
-                  <span className="text-2xl text-gray-400 line-through">
+                  <span className="text-xl sm:text-2xl text-gray-400 line-through">
                     ${product.originalPrice}
                   </span>
                 )}
                 {product.discount && (
-                  <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                  <span className="bg-red-100 text-red-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold">
                     -{product.discount}%
                   </span>
                 )}
               </div>
 
-              <p className="text-gray-600 mb-5 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 mb-5 leading-relaxed">
                 {product.description}
               </p>
 
-              {/* ✅ Colors */}
+              {/* Horizontal Line */}
+              <div className="border-t border-gray-200 mb-5"></div>
+
+              {/* Colors */}
               <div className="mb-5">
-                <p className="text-gray-600 mb-2 font-medium">Select Colors</p>
-                <div className="flex items-center gap-3">
+                <p className="text-gray-600 mb-3 font-medium text-sm sm:text-base">
+                  Select Colors
+                </p>
+                <div className="flex gap-3">
                   {product.colors?.map((color, idx) => (
                     <div
                       key={idx}
                       onClick={() => setSelectedColor(idx)}
-                      className={`w-9 h-9 rounded-full cursor-pointer border-2 transition relative flex items-center justify-center ${
+                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full cursor-pointer border-2 transition flex items-center justify-center ${
                         selectedColor === idx
                           ? "border-black"
                           : "border-gray-300"
                       }`}
                       style={{ backgroundColor: color.code }}
-                      title={color.name}
                     >
                       {selectedColor === idx && (
-                        <FiCheck className="absolute text-white w-4 h-4" />
+                        <FiCheck className="text-white w-4 h-4" />
                       )}
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* ✅ Sizes */}
-              <div>
-                <p className="text-gray-600 mb-2 font-medium">Choose Size</p>
-                <div className="flex items-center gap-2 flex-wrap">
+              {/* Horizontal Line */}
+              <div className="border-t border-gray-200 mb-5"></div>
+
+              {/* Sizes */}
+              <div className="mb-6">
+                <p className="text-gray-600 mb-3 font-medium text-sm sm:text-base">
+                  Choose Size
+                </p>
+                <div className="flex gap-2 sm:gap-3 flex-wrap">
                   {product.sizes?.map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`px-5 py-2 rounded-full font-medium transition ${
+                      className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition ${
                         selectedSize === size
                           ? "bg-black text-white"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -268,40 +328,43 @@ export default function ProductPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Horizontal Line */}
+              <div className="border-t border-gray-200 mb-5"></div>
             </div>
 
-            {/* ✅ Quantity + Cart Buttons */}
-            <div className="flex items-center gap-4 mt-4">
-              <div className="flex items-center gap-4 bg-gray-100 rounded-full px-5 py-3">
+            {/* Quantity + Add to Cart - Stays at Bottom */}
+            <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4">
+              <div className="flex items-center justify-center gap-5 bg-gray-100 rounded-full px-6 py-3 sm:px-8 sm:py-4">
                 <button
                   onClick={() => handleQuantityChange("decrease")}
-                  className="text-gray-700 hover:text-black transition"
                   disabled={quantity === 1}
+                  className="text-gray-700 hover:text-black disabled:opacity-50 transition"
                 >
-                  <FiMinus className="w-5 h-5" />
+                  <FiMinus className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
-                <span className="font-medium text-lg w-8 text-center">
+                <span className="font-medium text-base sm:text-lg min-w-[30px] text-center">
                   {quantity}
                 </span>
                 <button
                   onClick={() => handleQuantityChange("increase")}
                   className="text-gray-700 hover:text-black transition"
                 >
-                  <FiPlus className="w-5 h-5" />
+                  <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
               {isAdded ? (
                 <Link
                   href="/cart"
-                  className="flex-1 bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition flex items-center justify-center"
+                  className="flex-1 bg-black text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-medium hover:bg-gray-800 transition text-center text-sm sm:text-base"
                 >
                   Go to Cart
                 </Link>
               ) : (
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-black text-white py-3 px-8 rounded-full font-medium hover:bg-gray-800 transition flex items-center justify-center"
+                  className="flex-1 bg-black text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-medium hover:bg-gray-800 transition text-sm sm:text-base"
                 >
                   Add to Cart
                 </button>
@@ -310,24 +373,24 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* ✅ Tabs Section */}
-        <div className="mt-16">
-          <div className="flex items-center justify-center border-b border-gray-200 gap-12">
+        {/* Tabs */}
+        <div className="mt-12 md:mt-16">
+          <div className="flex justify-center border-b border-gray-200 gap-4 sm:gap-8 md:gap-12 overflow-x-auto">
             {["details", "reviews", "faqs"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-8 py-4 font-medium transition relative ${
+                className={`px-4 sm:px-6 md:px-8 py-3 sm:py-4 font-medium transition relative text-sm sm:text-base whitespace-nowrap ${
                   activeTab === tab
                     ? "text-black"
                     : "text-gray-500 hover:text-black"
                 }`}
               >
                 {tab === "details"
-                  ? productData.productDetails || "Product Details"
+                  ? productData.productDetails
                   : tab === "reviews"
-                    ? productData.ratingReviews || "Rating & Reviews"
-                    : productData.faqs || "FAQs"}
+                    ? productData.ratingReviews
+                    : productData.faqs}
 
                 {activeTab === tab && (
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black"></div>
@@ -336,13 +399,11 @@ export default function ProductPage() {
             ))}
           </div>
 
-          {/* ✅ Tab Content */}
-          <div className="py-8">
+          <div className="py-6 sm:py-8">
             {activeTab === "details" && (
-              <p className="text-gray-600 max-w-3xl mx-auto text-center">
+              <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto text-center px-4">
                 Premium quality materials and modern design make this product a
-                must-have for your wardrobe. It’s durable, stylish, and crafted
-                with care.
+                must-have for your wardrobe.
               </p>
             )}
 
@@ -351,14 +412,13 @@ export default function ProductPage() {
             )}
 
             {activeTab === "faqs" && (
-              <p className="text-gray-600 text-center">
-                FAQs section coming soon...
+              <p className="text-sm sm:text-base text-gray-600 text-center px-4">
+                FAQs coming soon...
               </p>
             )}
           </div>
         </div>
 
-        {/* ✅ “You Might Also Like” Section */}
         <YouMightAlsoLikeSection />
       </div>
     </div>

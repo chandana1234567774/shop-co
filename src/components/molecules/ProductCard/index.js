@@ -20,14 +20,14 @@ const ProductCard = ({
     <div className="w-full">
       <div className="flex flex-col items-start text-left w-full cursor-pointer">
         {/* Product Image */}
-        <div className="w-full overflow-hidden rounded-2xl relative group">
+        <div className="w-full overflow-hidden rounded-2xl relative">
           <Link href={`/product/${slug}`}>
             <Image
               src={image}
               alt={name}
               width={280}
               height={280}
-              className="object-contain w-full h-auto transition-transform duration-300 group-hover:scale-105"
+              className="object-contain w-full h-auto transition-transform duration-300"
             />
           </Link>
         </div>
