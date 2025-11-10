@@ -16,6 +16,7 @@ export default function Navbar() {
   const [showBanner, setShowBanner] = useState(true);
 
   const navbar = en.Navbar || {};
+  const offerBanner = en.OfferBanner || {};
   const searchPlaceholder = en.SearchPlaceholder || "";
   const { CART, USER } = IMAGES;
 
@@ -46,17 +47,16 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ✅ Offer Banner */}
       {showBanner && (
         <div className="bg-black text-white h-[32px] px-5 md:px-10 flex items-center justify-between fixed top-0 left-0 right-0 z-50 font-satoshi">
           <div className="flex-1 text-center">
             <p className="font-satoshi font-[400] text-[13px] text-white">
-              Sign up and get 20% off your first order.{" "}
+              {offerBanner.Text}{" "}
               <Link
-                href="/signup"
+                href={offerBanner.LinkUrl || "/signup"}
                 className="underline text-white hover:text-gray-100 transition-colors"
               >
-                Sign Up Now
+                {offerBanner.LinkText}
               </Link>
             </p>
           </div>
@@ -71,14 +71,12 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* ✅ Navbar */}
       <nav
         className="bg-white shadow-md px-6 md:px-20 py-3 flex items-center justify-between w-full fixed left-0 right-0 z-40 transition-all"
         style={{
           top: showBanner ? "32px" : "0px",
         }}
       >
-        {/* LEFT: Logo + Links */}
         <div className="flex items-center gap-10">
           <Link href="/">
             <h1 className="text-2xl md:text-3xl font-integral font-extrabold text-gray-900 tracking-wide cursor-pointer logo-font-family">
@@ -86,7 +84,6 @@ export default function Navbar() {
             </h1>
           </Link>
 
-          {/* Desktop Nav */}
           <ul className="hidden lg:flex items-center gap-6 text-gray-700 font-medium">
             <li
               className="relative cursor-pointer"
@@ -110,7 +107,6 @@ export default function Navbar() {
                 </svg>
               </span>
 
-              {/* ✅ Fixed Dropdown - stays open when hovering */}
               {isDropdownOpen && (
                 <ul
                   className="absolute left-0 top-8 bg-white shadow-lg rounded-xl py-3 px-4 w-44 space-y-2 border border-gray-100 z-50"
@@ -154,11 +150,9 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* RIGHT: Search + Icons */}
         <div className="flex items-center gap-4 md:gap-6">
-          {/* ✅ Search bar (visible only on laptop/desktop) */}
           <div
-            className="hidden md:flex w-[22rem] lg:w-[28rem] h-[2.5rem] relative rounded-full"
+            className="hidden lg:flex w-[22rem] lg:w-[28rem] h-[2.5rem] relative rounded-full"
             style={{ backgroundColor: "#F0F0F0" }}
           >
             <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
@@ -168,7 +162,6 @@ export default function Navbar() {
             />
           </div>
 
-          {/* Cart + User Icons */}
           <div className="flex items-center gap-4">
             <div className="relative">
               <Link href="/cart">
@@ -197,7 +190,6 @@ export default function Navbar() {
             />
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="lg:hidden flex items-center text-gray-700"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -210,7 +202,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* ✅ Mobile Dropdown */}
         {isMenuOpen && (
           <div className="absolute top-16 left-0 w-full bg-white shadow-md border-t border-gray-100 lg:hidden z-50">
             <ul className="flex flex-col items-center py-4 space-y-4 text-gray-700 font-medium">
@@ -234,7 +225,6 @@ export default function Navbar() {
                 {navbar.Brands || "Brands"}
               </li>
 
-              {/* ✅ Fixed Mobile Search Bar */}
               <div className="flex items-center rounded-full px-4 py-2 w-10/12 bg-gray-50 focus-within:bg-white transition">
                 <FiSearch className="mr-2 text-gray-400" />
                 <Input
@@ -247,7 +237,6 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* ✅ Spacer */}
       <div style={{ height: showBanner ? "72px" : "56px" }}></div>
     </>
   );

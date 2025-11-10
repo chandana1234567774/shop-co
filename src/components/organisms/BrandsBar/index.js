@@ -33,22 +33,35 @@ export default function BrandsBar() {
 
   return (
     <div className="w-full bg-black py-6 border-t border-b">
-      <div className="max-w-[1440px] mx-auto overflow-x-auto scrollbar-hide px-6 sm:px-10 md:px-12 lg:px-16 xl:px-20">
-        <div className="flex items-center justify-start lg:justify-between gap-10 min-w-max lg:min-w-0">
-          {brands.map(({ key, width, height }) => (
-            <div
-              key={key}
-              className="flex items-center justify-center w-[140px] sm:w-[160px] lg:w-[180px] h-[70px] sm:h-[80px] lg:h-[90px]"
-            >
-              <Image
-                src={fetchImage(IMAGES[key])}
-                alt={key}
-                width={width}
-                height={height}
-                className="object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
-              />
-            </div>
-          ))}
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 md:px-12 lg:px-16 xl:px-20">
+        <div
+          className="overflow-x-auto overflow-y-hidden"
+          style={{
+            scrollbarWidth: "none" ,
+            msOverflowStyle: "none" 
+          }}
+        >
+          <style jsx>{`
+            div::-webkit-scrollbar {
+              display: none; /* Chrome, Safari, Opera */
+            }
+          `}</style>
+          <div className="flex items-center justify-start lg:justify-between gap-10 min-w-max lg:min-w-0">
+            {brands.map(({ key, width, height }) => (
+              <div
+                key={key}
+                className="flex items-center justify-center w-[140px] sm:w-[160px] lg:w-[180px] h-[70px] sm:h-[80px] lg:h-[90px]"
+              >
+                <Image
+                  src={fetchImage(IMAGES[key])}
+                  alt={key}
+                  width={width}
+                  height={height}
+                  className="object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

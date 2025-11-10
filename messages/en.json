@@ -1,4 +1,10 @@
 {
+  "OfferBanner": {
+    "Text": "Sign up and get 20% off your first order.",
+    "LinkText": "Sign Up Now",
+    "LinkUrl": "/signup"
+  },
+
   "Navbar": {
     "Logo": "SHOP.CO",
     "Home": "Home",
@@ -14,11 +20,15 @@
     "HeadlineLine1": "FIND CLOTHES",
     "HeadlineLine2": "THAT MATCHES",
     "HeadlineLine3": "YOUR STYLE",
-    "SubheadlineLine1": "Browse through our diverse range of meticulously crafted garments,",
-    "SubheadlineLine2": "designed to bring out your individuality and cater to your sense of style.",
+    "SubheadlineLine1": "Browse through our diverse range of meticulously crafted garments, designed",
+    "SubheadlineLine2": "to bring out your individuality and cater to your sense of style.",
     "Button": "Shop Now",
-    "BackgroundAlt": "Stylish Fashion Models",
-    "BelowButtonImageAlt": "Fashion Showcase"
+    "Stat1Number": "200+",
+    "Stat1Label": "International Brands",
+    "Stat2Number": "2,000+",
+    "Stat2Label": "High-Quality Products",
+    "Stat3Number": "30,000+",
+    "Stat3Label": "Happy Customers"
   },
 
   "BrandsBar": {
@@ -54,37 +64,37 @@
     "Reviews": [
       {
         "Name": "Sarah M.",
-        "Review": "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I’ve bought has exceeded my expectations.",
+        "Review": "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
         "Rating": 5
       },
       {
         "Name": "Alex K.",
-        "Review": "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to various tastes.",
+        "Review": "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
         "Rating": 5
       },
       {
         "Name": "James L.",
-        "Review": "As someone who's always on the lookout for unique fashion pieces, I’m thrilled to have stumbled upon Shop.co. Their selection is diverse, trendy, and top quality.",
+        "Review": "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
         "Rating": 5
       },
       {
         "Name": "Michael Brown",
-        "Review": "Good experience overall. The fabric feels premium and durable.",
+        "Review": "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
         "Rating": 4
       },
       {
         "Name": "Sophia Turner",
-        "Review": "Excellent service and quick delivery. The quality exceeded my expectations!",
+        "Review": "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends",
         "Rating": 5
       },
       {
         "Name": "Liam Carter",
-        "Review": "Very comfortable and stylish. Got so many compliments wearing this!",
+        "Review": "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
         "Rating": 4
       },
       {
         "Name": "Olivia Green",
-        "Review": "Fantastic experience! I’ll definitely recommend this store to my friends.",
+        "Review": "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
         "Rating": 5
       }
     ]

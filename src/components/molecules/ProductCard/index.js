@@ -19,20 +19,19 @@ const ProductCard = ({
   return (
     <div className="w-full">
       <div className="flex flex-col items-start text-left w-full cursor-pointer">
-        {/* Product Image */}
-        <div className="w-full overflow-hidden rounded-2xl relative">
+        {/* Fixed height container for consistent image display */}
+        <div className="w-full h-[280px] overflow-hidden rounded-2xl relative bg-gray-50">
           <Link href={`/product/${slug}`}>
             <Image
               src={image}
               alt={name}
               width={280}
               height={280}
-              className="object-contain w-full h-auto transition-transform duration-300"
+              className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
             />
           </Link>
         </div>
 
-        {/* Product Info */}
         <Link href={`/product/${slug}`} className="mt-3 w-full">
           <h3 className="text-gray-900 font-medium text-base truncate">
             {name}

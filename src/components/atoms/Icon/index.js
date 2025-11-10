@@ -6,10 +6,8 @@ export const Icon = ({
   color = "currentColor",
   className = "",
 }) => {
-  // Map icon names to SVG paths or use an icon library
   return (
     <div className={className} style={{ width: size, height: size, color }}>
-      {/* Icon SVG or component */}
     </div>
   );
 };

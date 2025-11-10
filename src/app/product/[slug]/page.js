@@ -25,7 +25,6 @@ export default function ProductPage() {
 
   const productData = en.ProductPage || {};
 
-  // ✅ Load product by slug
   useEffect(() => {
     const productName = slug;
     const allProducts = Object.values(PRODUCTS).flat();
@@ -78,7 +77,6 @@ export default function ProductPage() {
     });
   };
 
-  // ✅ Corrected Add to Cart (no duplicates → quantity increases)
   const handleAddToCart = () => {
     if (!product) return;
 
@@ -150,7 +148,6 @@ export default function ProductPage() {
     <div className="min-h-screen bg-white">
       <div className="pt-8" />
 
-      {/* Breadcrumb */}
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-6">
         <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
           <Link href="/" className="hover:text-black">
@@ -167,12 +164,9 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* Product Section */}
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:items-start">
-          {/* Images - Mobile/Tablet: Big Image on Top, Thumbnails Below */}
           <div className="w-full">
-            {/* Main Image - Mobile/Tablet */}
             <div className="w-full rounded-2xl overflow-hidden bg-[#f8f8f8] mb-4 aspect-square lg:hidden">
               <div className="relative w-full h-full">
                 <Image
@@ -184,7 +178,6 @@ export default function ProductPage() {
               </div>
             </div>
 
-            {/* Thumbnails Below - Mobile/Tablet */}
             <div className="grid grid-cols-3 gap-3 lg:hidden">
               {product.images.slice(1, 4).map((img, idx) => (
                 <div
@@ -205,7 +198,6 @@ export default function ProductPage() {
               ))}
             </div>
 
-            {/* Desktop Layout: Thumbnails on Left, Main Image on Right */}
             <div className="hidden lg:flex gap-4 h-[550px]">
               <div className="flex flex-col gap-3 w-32 h-full">
                 {product.images.slice(1, 4).map((img, idx) => (
@@ -240,7 +232,6 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Details - Equal Height to Images on Desktop */}
           <div className="flex flex-col justify-between h-auto lg:h-[550px]">
             <div className="flex-1 flex flex-col">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase mb-3">
@@ -276,10 +267,8 @@ export default function ProductPage() {
                 {product.description}
               </p>
 
-              {/* Horizontal Line */}
               <div className="border-t border-gray-200 mb-5"></div>
 
-              {/* Colors */}
               <div className="mb-5">
                 <p className="text-gray-600 mb-3 font-medium text-sm sm:text-base">
                   Select Colors
@@ -304,10 +293,8 @@ export default function ProductPage() {
                 </div>
               </div>
 
-              {/* Horizontal Line */}
               <div className="border-t border-gray-200 mb-5"></div>
 
-              {/* Sizes */}
               <div className="mb-6">
                 <p className="text-gray-600 mb-3 font-medium text-sm sm:text-base">
                   Choose Size
@@ -329,11 +316,9 @@ export default function ProductPage() {
                 </div>
               </div>
 
-              {/* Horizontal Line */}
               <div className="border-t border-gray-200 mb-5"></div>
             </div>
 
-            {/* Quantity + Add to Cart - Stays at Bottom */}
             <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4">
               <div className="flex items-center justify-center gap-5 bg-gray-100 rounded-full px-6 py-3 sm:px-8 sm:py-4">
                 <button
@@ -373,7 +358,6 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="mt-12 md:mt-16">
           <div className="flex justify-center border-b border-gray-200 gap-4 sm:gap-8 md:gap-12 overflow-x-auto">
             {["details", "reviews", "faqs"].map((tab) => (

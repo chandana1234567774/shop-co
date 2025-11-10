@@ -14,7 +14,6 @@ export default function CartPage() {
   const [cart, setCart] = useState([]);
   const [promoCode, setPromoCode] = useState("");
 
-  // ✅ Load cart from localStorage
   useEffect(() => {
     try {
       const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -26,7 +25,6 @@ export default function CartPage() {
 
   console.log(cart, "cart");
 
-  // ✅ Update item quantity
   const handleQuantityChange = (index, change) => {
     const updatedCart = [...cart];
     const newQty = Math.max(1, (updatedCart[index].quantity || 1) + change);
@@ -37,7 +35,6 @@ export default function CartPage() {
   };
 
   const findProductImage = (productName) => {
-    // Flatten all product arrays into one list
     const allProducts = [
       ...PRODUCTS.newArrivals,
       ...PRODUCTS.topSelling,
@@ -49,7 +46,6 @@ export default function CartPage() {
     return product?.image || fetchImage("home-page/Frame 32.png");
   };
 
-  // ✅ Delete item from cart
   const handleDelete = (index) => {
     const updatedCart = cart.filter((_, i) => i !== index);
     setCart(updatedCart);
@@ -57,7 +53,7 @@ export default function CartPage() {
     window.dispatchEvent(new Event("cartUpdated"));
   };
 
-  // ✅ Totals
+
   const subtotal = cart.reduce(
     (sum, item) => sum + (item.price || 0) * (item.quantity || 1),
     0
@@ -66,7 +62,6 @@ export default function CartPage() {
   const deliveryFee = 15;
   const total = subtotal - discount + deliveryFee;
 
-  // ✅ Safe image getter
   const getSafeImage = (image) => {
     if (!image) return fetchImage("home-page/Frame 32.png");
     if (typeof image === "string") {
@@ -78,10 +73,8 @@ export default function CartPage() {
 
   return (
     <div className="px-6 md:px-12 lg:px-16 xl:px-24 pb-20 bg-gray-50 min-h-screen">
-      {/* Space between Navbar and Breadcrumb */}
       <div className="pt-10" />
 
-      {/* Breadcrumb */}
       <div className="flex items-center text-sm text-gray-600 mb-6 space-x-2">
         <Link href="/" className="text-gray-500 hover:text-black transition">
           {t.breadcrumbHome}
@@ -90,21 +83,17 @@ export default function CartPage() {
         <span className="text-gray-900 font-medium">{t.breadcrumbCart}</span>
       </div>
 
-      {/* Title */}
       <h1 className="text-3xl font-semibold text-gray-900 mb-8">{t.title}</h1>
 
-      {/* Empty Cart */}
       {cart.length === 0 ? (
         <p className="text-gray-600">{t.emptyCart}</p>
       ) : (
         <div className="flex flex-col lg:flex-row gap-4 max-w-7xl">
-          {/* 🛒 Cart Items */}
           <div className="w-full lg:w-[60%]">
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
               {cart.map((item, index) => (
                 <div key={index}>
                   <div className="flex flex-col sm:flex-row justify-between items-start py-4 px-2">
-                    {/* Product Info */}
                     <div className="flex items-center gap-4 w-full sm:w-auto">
                       <Image
                         src={findProductImage(item.name)}
@@ -234,7 +223,7 @@ export default function CartPage() {
                 </button>
               </div>
 
-              {/* ✅ Checkout Button */}
+        
               <Link href="/payment">
                 <button className="mt-5 w-full bg-black text-white py-2.5 rounded-full font-medium text-sm hover:bg-gray-800 transition flex items-center justify-center gap-2 group">
                   {t.checkout}

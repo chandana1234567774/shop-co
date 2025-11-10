@@ -13,7 +13,6 @@ export default function Button({
     secondary: "bg-white text-black border border-gray-300 hover:bg-gray-100",
   };
 
-  // Validate variant to prevent undefined styles
   const variantStyle = variants[variant] || variants.primary;
 
   return (

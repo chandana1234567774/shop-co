@@ -10,7 +10,7 @@ export default function PaymentPage() {
 
   const [form, setForm] = useState({
     name: "",
-    cardNumber: "", // stored as formatted "1234 5678 9012 3456"
+    cardNumber: "",
     ccv: "",
     expiry: "",
   });
@@ -25,7 +25,6 @@ export default function PaymentPage() {
     total: 0,
   });
 
-  // Load cart summary
   useEffect(() => {
     try {
       const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -42,7 +41,6 @@ export default function PaymentPage() {
     }
   }, []);
 
-  // Format card number into groups of 4
   const formatCardNumber = (digits) =>
     digits
       .replace(/\D/g, "")
@@ -55,7 +53,6 @@ export default function PaymentPage() {
     let newValue = value;
 
     if (name === "cardNumber") {
-      // Keep a spaced format for readability, but store/display as spaced groups
       newValue = formatCardNumber(value);
     }
 
@@ -65,7 +62,6 @@ export default function PaymentPage() {
 
     if (name === "expiry") {
       newValue = value.replace(/[^0-9/]/g, "");
-      // auto add slash after 2 digits if user types MMYY
       const digits = newValue.replace(/\//g, "");
       if (digits.length > 2) {
         newValue = digits.slice(0, 2) + "/" + digits.slice(2, 4);
@@ -81,7 +77,6 @@ export default function PaymentPage() {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // Validation
   const validateForm = () => {
     const newErrors = {};
 
@@ -134,9 +129,7 @@ export default function PaymentPage() {
       setErrors(validationErrors);
     } else {
       localStorage.removeItem("cart");
-
       window.dispatchEvent(new Event("cartUpdated"));
-
       setPaymentSuccess(true);
     }
   };
@@ -164,7 +157,6 @@ export default function PaymentPage() {
   return (
     <div className="min-h-screen flex justify-center items-center bg-[#F8F8F8] py-10 px-6">
       <div className="bg-white rounded-3xl shadow-lg flex flex-col lg:flex-row w-full max-w-6xl overflow-hidden gap-x-10">
-        {/* LEFT - PAYMENT FORM */}
         <div className="flex-1 p-8 md:p-12">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             {t.Title || "Payment Details"}
@@ -198,7 +190,6 @@ export default function PaymentPage() {
               )}
             </div>
 
-            {/* CARD NUMBER */}
             <div>
               <label
                 className="text-sm text-gray-700 font-medium"
@@ -224,7 +215,6 @@ export default function PaymentPage() {
               )}
             </div>
 
-            {/* CCV + EXPIRY */}
             <div className="flex gap-4">
               <div className="flex-1">
                 <label
@@ -286,31 +276,34 @@ export default function PaymentPage() {
           </form>
         </div>
 
-        {/* RIGHT - ORDER SUMMARY */}
-        <div className="bg-[#EAF0FA] p-8 md:p-10 w-full lg:w-[40%] rounded-tr-3xl rounded-br-3xl">
-          <h3 className="text-lg font-semibold text-gray-800 mb-6">
+        <div className="bg-white p-8 md:p-10 w-full lg:w-[40%] rounded-2xl shadow-sm border border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
             Order Summary
           </h3>
 
-          <div className="space-y-3">
+          <div className="space-y-3 text-gray-700 text-sm">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${orderSummary.subtotal.toFixed(2)}</span>
+              <span className="font-medium">
+                ${orderSummary.subtotal.toFixed(2)}
+              </span>
             </div>
 
             <div className="flex justify-between">
               <span>Discount (20%)</span>
-              <span className="text-red-500">
+              <span className="text-red-600 font-medium">
                 -${orderSummary.discount.toFixed(2)}
               </span>
             </div>
 
             <div className="flex justify-between">
-              <span>Delivery</span>
-              <span>${orderSummary.delivery.toFixed(2)}</span>
+              <span>Delivery Fee</span>
+              <span className="font-medium">
+                ${orderSummary.delivery.toFixed(2)}
+              </span>
             </div>
 
-            <hr />
+            <hr className="border-gray-200 my-2" />
 
             <div className="flex justify-between font-semibold text-gray-900">
               <span>Total</span>

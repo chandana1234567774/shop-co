@@ -13,13 +13,11 @@ export default function CategoryPage() {
   const t = en.CategoryPage;
   const { FILTER_ICON } = IMAGES;
 
-  // ✅ Final applied filters
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [priceRange, setPriceRange] = useState([0, 300]);
 
-  // ✅ Temporary selections for mobile preview
   const [tempCategory, setTempCategory] = useState("");
   const [tempSize, setTempSize] = useState("");
   const [tempColor, setTempColor] = useState("");
@@ -28,7 +26,6 @@ export default function CategoryPage() {
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState("mostPopular");
 
-  // Dropdown toggles
   const [isCategoryOpen, setIsCategoryOpen] = useState(true);
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isColorOpen, setIsColorOpen] = useState(true);
@@ -61,7 +58,6 @@ export default function CategoryPage() {
   ];
   const dressStyles = ["Casual", "Formal", "Party", "Gym"];
 
-  // ✅ Prevent body scroll when filter modal is open
   useEffect(() => {
     if (showFilters) {
       document.body.style.overflow = "hidden";
@@ -69,13 +65,11 @@ export default function CategoryPage() {
       document.body.style.overflow = "unset";
     }
 
-    // Cleanup on unmount
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [showFilters]);
 
-  // ✅ Filter Products on Apply
   const filteredProducts = PRODUCTS.categories
     .filter((product) => {
       if (selectedCategory && product.category !== selectedCategory)
@@ -92,7 +86,6 @@ export default function CategoryPage() {
       return 0;
     });
 
-  // ✅ Apply Filters Button Logic
   const applyFilters = () => {
     setSelectedCategory(tempCategory);
     setSelectedSize(tempSize);
@@ -101,7 +94,6 @@ export default function CategoryPage() {
     setShowFilters(false);
   };
 
-  // ✅ When opening filter drawer, sync temporary preview
   const openFilterDrawer = () => {
     setTempCategory(selectedCategory);
     setTempSize(selectedSize);
@@ -112,7 +104,6 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Breadcrumb */}
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-6">
         <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
           <span className="hover:text-black cursor-pointer">
@@ -123,10 +114,8 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      {/* Main Layout */}
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 pb-12">
         <div className="flex flex-col lg:flex-row gap-5">
-          {/* Sidebar - Mobile Overlay + Desktop Sidebar */}
           <aside
             className={`${
               showFilters
@@ -158,7 +147,6 @@ export default function CategoryPage() {
 
             <hr className="mb-5 border-gray-200" />
 
-            {/* Category */}
             <div className="mb-5">
               <div
                 className="flex items-center justify-between mb-4 cursor-pointer"
@@ -208,7 +196,6 @@ export default function CategoryPage() {
 
             <hr className="mb-5 border-gray-200" />
 
-            {/* Price */}
             <div className="mb-5">
               <div
                 className="flex items-center justify-between mb-4 cursor-pointer"
@@ -273,7 +260,6 @@ export default function CategoryPage() {
 
             <hr className="mb-5 border-gray-200" />
 
-            {/* Colors */}
             <div className="mb-5">
               <div
                 className="flex items-center justify-between mb-4 cursor-pointer"
@@ -313,7 +299,6 @@ export default function CategoryPage() {
 
             <hr className="mb-5 border-gray-200" />
 
-            {/* Sizes */}
             <div className="mb-5">
               <div
                 className="flex items-center justify-between mb-4 cursor-pointer"
@@ -349,7 +334,6 @@ export default function CategoryPage() {
 
             <hr className="mb-5 border-gray-200" />
 
-            {/* Apply Filter Button */}
             <button
               className="w-full bg-black text-white py-3 sm:py-3.5 rounded-full text-sm font-medium hover:bg-gray-800 transition"
               onClick={applyFilters}
@@ -358,9 +342,7 @@ export default function CategoryPage() {
             </button>
           </aside>
 
-          {/* Product Grid */}
           <main className="flex-1 min-w-0">
-            {/* Header with Title, Results Count, Sort, and Filter */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 gap-3 sm:gap-4">
               <h1 className="text-xl sm:text-2xl md:text-[32px] font-bold">
                 {t.breadcrumbCategory}
@@ -389,7 +371,6 @@ export default function CategoryPage() {
                     <option value="highestPrice">{t.highestPrice}</option>
                   </select>
 
-                  {/* Mobile Filter Button */}
                   <button
                     onClick={openFilterDrawer}
                     className="lg:hidden p-2 rounded-full bg-[#F0F0F0] hover:bg-gray-200 transition"
@@ -406,14 +387,12 @@ export default function CategoryPage() {
               </div>
             </div>
 
-            {/* Product Listing */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mb-10">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} {...product} />
               ))}
             </div>
 
-            {/* Pagination */}
             {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 border-t border-gray-200 pt-6 sm:pt-8 pb-6">
               <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition flex items-center gap-2 w-full sm:w-auto justify-center">
                 <span>←</span>
