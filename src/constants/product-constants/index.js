@@ -4,7 +4,7 @@ import fetchImage from "@/utils/image-utils";
 import { IMAGES } from "@/constants/image-constants"; // ✅ correct import path
 
 export const PRODUCTS = {
-  // 🆕 NEW ARRIVALS
+  //  NEW ARRIVALS
   newArrivals: [
     {
       id: 1,
@@ -40,7 +40,7 @@ export const PRODUCTS = {
     },
   ],
 
-  // 🛒 TOP SELLING
+  //  TOP SELLING
   topSelling: [
     {
       id: 5,
@@ -74,7 +74,7 @@ export const PRODUCTS = {
     },
   ],
 
-  // 💡 YOU MIGHT ALSO LIKE
+  //  YOU MIGHT ALSO LIKE
   youMightAlsoLike: [
     {
       id: 9,
@@ -110,7 +110,7 @@ export const PRODUCTS = {
     },
   ],
 
-  // 👕 CATEGORY PRODUCTS
+  //  CATEGORY PRODUCTS
   categories: [
     {
       id: 1,
@@ -120,7 +120,8 @@ export const PRODUCTS = {
       rating: 3.5,
       category: "T-shirts",
       color: "Pink",
-      size: "L",
+      size: "Large",
+      dressStyle: "Casual",
     },
     {
       id: 2,
@@ -130,7 +131,8 @@ export const PRODUCTS = {
       rating: 4.5,
       category: "T-shirts",
       color: "Brown",
-      size: "M",
+      size: "Medium",
+      dressStyle: "Casual",
     },
     {
       id: 3,
@@ -142,7 +144,8 @@ export const PRODUCTS = {
       discount: "-30%",
       category: "T-shirts",
       color: "Black",
-      size: "S",
+      size: "Small",
+      dressStyle: "Casual",
     },
     {
       id: 4,
@@ -154,7 +157,8 @@ export const PRODUCTS = {
       discount: "-20%",
       category: "Jeans",
       color: "Blue",
-      size: "L",
+      size: "Large",
+      dressStyle: "Casual",
     },
     {
       id: 5,
@@ -164,7 +168,8 @@ export const PRODUCTS = {
       rating: 4.5,
       category: "Shirts",
       color: "Red",
-      size: "M",
+      size: "Medium",
+      dressStyle: "Formal",
     },
     {
       id: 6,
@@ -176,7 +181,8 @@ export const PRODUCTS = {
       discount: "-30%",
       category: "Shirts",
       color: "Green",
-      size: "L",
+      size: "Large",
+      dressStyle: "Casual",
     },
     {
       id: 7,
@@ -188,7 +194,8 @@ export const PRODUCTS = {
       discount: "-20%",
       category: "Shirts",
       color: "Blue",
-      size: "S",
+      size: "Small",
+      dressStyle: "Formal",
     },
     {
       id: 8,
@@ -198,7 +205,8 @@ export const PRODUCTS = {
       rating: 4.0,
       category: "T-shirts",
       color: "Orange",
-      size: "L",
+      size: "Large",
+      dressStyle: "Party",
     },
     {
       id: 9,
@@ -208,7 +216,8 @@ export const PRODUCTS = {
       discount: "-20%",
       category: "Shorts",
       color: "Blue",
-      size: "S",
+      size: "Small",
+      dressStyle: "Gym",
     },
   ],
 };

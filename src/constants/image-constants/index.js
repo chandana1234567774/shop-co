@@ -9,7 +9,7 @@ export const IMAGES = {
   PRADA: "home-page/prada-logo-1 1 (1).png",
   CALVIN: "home-page/Group (2).png",
   EMAIL_ICON: "home-page/Frame 1.png",
-  VISA: "home-page/Visa.png",
+  VISA: "home-page/Badge (9).png",
   MASTERCARD: "home-page/Badge (5).png",
   PAYPAL: "home-page/Badge (6).png",
   APPLE_PAY: "home-page/Badge (7).png",
@@ -17,7 +17,7 @@ export const IMAGES = {
   TWITTER_ICON: "home-page/twitter.png",
   FACEBOOK_ICON: "home-page/facebook.png",
   INSTAGRAM_ICON: "home-page/instagram.png",
-  GITHUB_ICON: "home-page/github.png",
+  GITHUB_ICON: "home-page/git.png",
   EXTRA: "home-page/extra-image.png",
   ARROW_RIGHT: "home-page/arrow-right.png",
   ARROW_LEFT: "home-page/arrow-left.png",
@@ -62,10 +62,10 @@ export const IMAGES = {
   VERIFIED_ICON: "home-page/Frame (2).png",
 
   // YOU MIGHT ALSO LIKE SECTION
-  SHIRT: "categories/Frame 34 (2).png",
-  MIX_SHIRT: "sec-page/Frame 32 (6).png",
-  BROWN_SHIRT: "categories/Frame 33 (2).png",
-  BLACK_SHIRT: "categories/Frame 38 (2).png",
+  SHIRT: "sec-page/Frame 32 (7).png",
+  MIX_SHIRT: "sec-page/Frame 33 (3).png",
+  BROWN_SHIRT: "sec-page/Frame 34 (3).png",
+  BLACK_SHIRT: "sec-page/Frame 38 (3).png",
 
   // ICONS
   FILTER_ICON: "sec-page/Frame (3).png",

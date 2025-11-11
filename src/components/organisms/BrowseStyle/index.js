@@ -2,6 +2,7 @@ import Heading from "@/components/atoms/Heading";
 import { BROWSE_STYLES } from "@/constants/style-constants";
 import en from "@messages/en.json";
 import Image from "next/image";
+import Link from "next/link";
 import fetchImage from "@/utils/image-utils";
 
 export default function BrowseStyle() {
@@ -22,53 +23,65 @@ export default function BrowseStyle() {
                           lg:grid-cols-3
                           auto-rows-fr"
           >
-            <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:h-[320px]">
+            <Link
+              href="/category?style=Casual"
+              className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:h-[320px] cursor-pointer group"
+            >
               <Image
                 src={fetchImage(BROWSE_STYLES[0].image)}
                 alt={BROWSE_STYLES[0].alt}
                 fill
-                className="object-cover object-top hover:scale-105 transition-transform duration-300"
+                className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
               />
               <h3 className="absolute top-6 left-6 text-black text-xl sm:text-2xl md:text-3xl font-bold tracking-tight z-10">
                 {labels[0]}
               </h3>
-            </div>
+            </Link>
 
-            <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:col-span-2 lg:h-[320px]">
+            <Link
+              href="/category?style=Formal"
+              className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:col-span-2 lg:h-[320px] cursor-pointer group"
+            >
               <Image
                 src={fetchImage(BROWSE_STYLES[1].image)}
                 alt={BROWSE_STYLES[1].alt}
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <h3 className="absolute top-6 left-6 text-black text-xl sm:text-2xl md:text-3xl font-bold tracking-tight z-10">
                 {labels[1]}
               </h3>
-            </div>
+            </Link>
 
-            <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:col-span-2 lg:h-[320px]">
+            <Link
+              href="/category?style=Party"
+              className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:col-span-2 lg:h-[320px] cursor-pointer group"
+            >
               <Image
                 src={fetchImage(BROWSE_STYLES[3].image)}
                 alt={BROWSE_STYLES[3].alt}
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <h3 className="absolute top-6 left-6 text-black text-xl sm:text-2xl md:text-3xl font-bold tracking-tight z-10">
                 {labels[3]}
               </h3>
-            </div>
+            </Link>
 
-            <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:h-[320px]">
+            <Link
+              href="/category?style=Gym"
+              className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[300px] md:h-[320px] bg-white lg:h-[320px] cursor-pointer group"
+            >
               <Image
                 src={fetchImage(BROWSE_STYLES[2].image)}
                 alt={BROWSE_STYLES[2].alt}
                 fill
-                className="object-cover hover:scale-105 transition-transform duration-300"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <h3 className="absolute top-6 left-6 text-black text-xl sm:text-2xl md:text-3xl font-bold tracking-tight z-10">
                 {labels[2]}
               </h3>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

@@ -31,7 +31,7 @@ export default function HappyCustomersSection() {
     const startAutoScroll = () => {
       autoScrollInterval.current = setInterval(() => {
         const maxScroll = current.scrollWidth - current.clientWidth;
-
+``
         if (current.scrollLeft >= maxScroll - 10) {
           current.scrollTo({ left: 0, behavior: "smooth" });
         } else {

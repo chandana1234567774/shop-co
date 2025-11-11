@@ -142,7 +142,7 @@ export default function FooterWithNewsletter() {
               {footer.BottomText}
             </p>
 
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
+            <div className="flex items-center gap-2 sm:gap-1 flex-wrap justify-center">
               {[
                 IMAGES.VISA,
                 IMAGES.MASTERCARD,

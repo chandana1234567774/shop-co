@@ -148,14 +148,19 @@ export default function ProductPage() {
     <div className="min-h-screen bg-white">
       <div className="pt-8" />
 
+      {/* Breadcrumb */}
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-6">
         <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500">
           <Link href="/" className="hover:text-black">
-            Home
+            {productData.breadcrumbHome || "Home"}
           </Link>
           <span className="text-gray-400">{">"}</span>
           <Link href="/#new-arrivals" className="hover:text-black">
-            Shop
+            {productData.breadcrumbShop || "Shop"}
+          </Link>
+          <span className="text-gray-400">{">"}</span>
+          <Link href="/#new-arrivals" className="hover:text-black">
+            {productData.breadcrumbCategory || "T-shirts"}
           </Link>
           <span className="text-gray-400">{">"}</span>
           <span className="text-black font-medium truncate">
@@ -166,7 +171,9 @@ export default function ProductPage() {
 
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-20 py-4 md:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 lg:items-start">
+          {/* Image Section */}
           <div className="w-full">
+            {/* Mobile Main Image */}
             <div className="w-full rounded-2xl overflow-hidden bg-[#f8f8f8] mb-4 aspect-square lg:hidden">
               <div className="relative w-full h-full">
                 <Image
@@ -178,6 +185,7 @@ export default function ProductPage() {
               </div>
             </div>
 
+            {/* Mobile Thumbnails */}
             <div className="grid grid-cols-3 gap-3 lg:hidden">
               {product.images.slice(1, 4).map((img, idx) => (
                 <div
@@ -198,6 +206,7 @@ export default function ProductPage() {
               ))}
             </div>
 
+            {/* Desktop Layout */}
             <div className="hidden lg:flex gap-4 h-[550px]">
               <div className="flex flex-col gap-3 w-32 h-full">
                 {product.images.slice(1, 4).map((img, idx) => (
@@ -232,6 +241,7 @@ export default function ProductPage() {
             </div>
           </div>
 
+          {/* Product Details Section */}
           <div className="flex flex-col justify-between h-auto lg:h-[550px]">
             <div className="flex-1 flex flex-col">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase mb-3">
@@ -269,9 +279,10 @@ export default function ProductPage() {
 
               <div className="border-t border-gray-200 mb-5"></div>
 
+              {/* Color Selection */}
               <div className="mb-5">
                 <p className="text-gray-600 mb-3 font-medium text-sm sm:text-base">
-                  Select Colors
+                  {productData.selectColors || "Select Colors"}
                 </p>
                 <div className="flex gap-3">
                   {product.colors?.map((color, idx) => (
@@ -295,9 +306,10 @@ export default function ProductPage() {
 
               <div className="border-t border-gray-200 mb-5"></div>
 
+              {/* Size Selection */}
               <div className="mb-6">
                 <p className="text-gray-600 mb-3 font-medium text-sm sm:text-base">
-                  Choose Size
+                  {productData.chooseSize || "Choose Size"}
                 </p>
                 <div className="flex gap-2 sm:gap-3 flex-wrap">
                   {product.sizes?.map((size) => (
@@ -319,6 +331,7 @@ export default function ProductPage() {
               <div className="border-t border-gray-200 mb-5"></div>
             </div>
 
+            {/* Quantity and Add to Cart */}
             <div className="flex flex-col sm:flex-row items-stretch gap-3 sm:gap-4">
               <div className="flex items-center justify-center gap-5 bg-gray-100 rounded-full px-6 py-3 sm:px-8 sm:py-4">
                 <button
@@ -344,20 +357,21 @@ export default function ProductPage() {
                   href="/cart"
                   className="flex-1 bg-black text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-medium hover:bg-gray-800 transition text-center text-sm sm:text-base"
                 >
-                  Go to Cart
+                  {productData.goToCart || "Go to Cart"}
                 </Link>
               ) : (
                 <button
                   onClick={handleAddToCart}
                   className="flex-1 bg-black text-white py-3 sm:py-4 px-6 sm:px-8 rounded-full font-medium hover:bg-gray-800 transition text-sm sm:text-base"
                 >
-                  Add to Cart
+                  {productData.addToCart || "Add to Cart"}
                 </button>
               )}
             </div>
           </div>
         </div>
 
+        {/* Tabs Section */}
         <div className="mt-12 md:mt-16">
           <div className="flex justify-center border-b border-gray-200 gap-4 sm:gap-8 md:gap-12 overflow-x-auto">
             {["details", "reviews", "faqs"].map((tab) => (
@@ -371,10 +385,10 @@ export default function ProductPage() {
                 }`}
               >
                 {tab === "details"
-                  ? productData.productDetails
+                  ? productData.productDetails || "Product Details"
                   : tab === "reviews"
-                    ? productData.ratingReviews
-                    : productData.faqs}
+                    ? productData.ratingReviews || "Rating & Reviews"
+                    : productData.faqs || "FAQs"}
 
                 {activeTab === tab && (
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black"></div>
@@ -383,11 +397,12 @@ export default function ProductPage() {
             ))}
           </div>
 
+          {/* Tab Content */}
           <div className="py-6 sm:py-8">
             {activeTab === "details" && (
               <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto text-center px-4">
-                Premium quality materials and modern design make this product a
-                must-have for your wardrobe.
+                {productData.productDetailsContent ||
+                  "Premium quality materials and modern design make this product a must-have for your wardrobe."}
               </p>
             )}
 
@@ -397,7 +412,7 @@ export default function ProductPage() {
 
             {activeTab === "faqs" && (
               <p className="text-sm sm:text-base text-gray-600 text-center px-4">
-                FAQs coming soon...
+                {productData.faqsContent || "FAQs coming soon..."}
               </p>
             )}
           </div>

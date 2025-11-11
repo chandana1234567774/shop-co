@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { FiChevronDown, FiChevronRight, FiChevronUp } from "react-icons/fi";
 import en from "@messages/en.json";
@@ -12,15 +13,19 @@ import { IMAGES } from "@/constants/image-constants";
 export default function CategoryPage() {
   const t = en.CategoryPage;
   const { FILTER_ICON } = IMAGES;
+  const searchParams = useSearchParams();
+  const productsRef = useRef(null);
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [selectedDressStyle, setSelectedDressStyle] = useState("");
   const [priceRange, setPriceRange] = useState([0, 300]);
 
   const [tempCategory, setTempCategory] = useState("");
   const [tempSize, setTempSize] = useState("");
   const [tempColor, setTempColor] = useState("");
+  const [tempDressStyle, setTempDressStyle] = useState("");
   const [tempPrice, setTempPrice] = useState([0, 300]);
 
   const [showFilters, setShowFilters] = useState(false);
@@ -58,6 +63,15 @@ export default function CategoryPage() {
   ];
   const dressStyles = ["Casual", "Formal", "Party", "Gym"];
 
+  // Initialize filters from URL parameters
+  useEffect(() => {
+    const styleParam = searchParams.get("style");
+    if (styleParam && dressStyles.includes(styleParam)) {
+      setSelectedDressStyle(styleParam);
+      setTempDressStyle(styleParam);
+    }
+  }, [searchParams]);
+
   useEffect(() => {
     if (showFilters) {
       document.body.style.overflow = "hidden";
@@ -76,6 +90,8 @@ export default function CategoryPage() {
         return false;
       if (selectedSize && product.size !== selectedSize) return false;
       if (selectedColor && product.color !== selectedColor) return false;
+      if (selectedDressStyle && product.dressStyle !== selectedDressStyle)
+        return false;
       if (product.price < priceRange[0] || product.price > priceRange[1])
         return false;
       return true;
@@ -90,14 +106,26 @@ export default function CategoryPage() {
     setSelectedCategory(tempCategory);
     setSelectedSize(tempSize);
     setSelectedColor(tempColor);
+    setSelectedDressStyle(tempDressStyle);
     setPriceRange(tempPrice);
     setShowFilters(false);
+
+    // Scroll to products section after a short delay to allow drawer to close
+    setTimeout(() => {
+      if (productsRef.current) {
+        productsRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 100);
   };
 
   const openFilterDrawer = () => {
     setTempCategory(selectedCategory);
     setTempSize(selectedSize);
     setTempColor(selectedColor);
+    setTempDressStyle(selectedDressStyle);
     setTempPrice(priceRange);
     setShowFilters(true);
   };
@@ -334,6 +362,57 @@ export default function CategoryPage() {
 
             <hr className="mb-5 border-gray-200" />
 
+            <div className="mb-5">
+              <div
+                className="flex items-center justify-between mb-4 cursor-pointer"
+                onClick={() => setIsDressStyleOpen(!isDressStyleOpen)}
+              >
+                <h3 className="font-semibold text-sm sm:text-base text-gray-900">
+                  Dress Style
+                </h3>
+                {isDressStyleOpen ? (
+                  <FiChevronUp className="w-4 h-4" />
+                ) : (
+                  <FiChevronDown className="w-4 h-4" />
+                )}
+              </div>
+              {isDressStyleOpen && (
+                <ul className="space-y-3">
+                  {dressStyles.map((style) => (
+                    <li key={style}>
+                      <label
+                        className="flex items-center justify-between cursor-pointer text-sm text-gray-500 hover:text-black transition"
+                        onClick={() =>
+                          setTempDressStyle(
+                            style === tempDressStyle ? "" : style
+                          )
+                        }
+                      >
+                        <span
+                          className={
+                            tempDressStyle === style
+                              ? "font-semibold text-black"
+                              : ""
+                          }
+                        >
+                          {style}
+                        </span>
+                        <FiChevronRight
+                          className={`w-4 h-4 ${
+                            tempDressStyle === style
+                              ? "text-black"
+                              : "text-gray-400"
+                          }`}
+                        />
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <hr className="mb-5 border-gray-200" />
+
             <button
               className="w-full bg-black text-white py-3 sm:py-3.5 rounded-full text-sm font-medium hover:bg-gray-800 transition"
               onClick={applyFilters}
@@ -342,7 +421,7 @@ export default function CategoryPage() {
             </button>
           </aside>
 
-          <main className="flex-1 min-w-0">
+          <main className="flex-1 min-w-0" ref={productsRef}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5 gap-3 sm:gap-4">
               <h1 className="text-xl sm:text-2xl md:text-[32px] font-bold">
                 {t.breadcrumbCategory}
@@ -392,36 +471,6 @@ export default function CategoryPage() {
                 <ProductCard key={product.id} {...product} />
               ))}
             </div>
-
-            {/* <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 border-t border-gray-200 pt-6 sm:pt-8 pb-6">
-              <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition flex items-center gap-2 w-full sm:w-auto justify-center">
-                <span>←</span>
-                <span>Previous</span>
-              </button>
-
-              <div className="flex items-center gap-1 overflow-x-auto max-w-full pb-2 sm:pb-0">
-                {[1, 2, 3, "...", 8, 9, 10].map((page, idx) => (
-                  <button
-                    key={idx}
-                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg text-xs sm:text-sm font-medium transition flex-shrink-0 ${
-                      page === 1
-                        ? "bg-black text-white"
-                        : page === "..."
-                          ? "cursor-default text-gray-400"
-                          : "hover:bg-gray-100 text-gray-600"
-                    }`}
-                    disabled={page === "..."}
-                  >
-                    {page}
-                  </button>
-                ))}
-              </div>
-
-              <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-100 transition flex items-center gap-2 w-full sm:w-auto justify-center">
-                <span>Next</span>
-                <span>→</span>
-              </button>
-            </div> */}
           </main>
         </div>
       </div>
